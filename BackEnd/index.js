@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+const cors=require('cors');
 
 //dotenv is a module to set environment variables automaticlly from the .env file
 const envVar = require("dotenv").config().parsed;
@@ -7,15 +7,21 @@ const envVar = require("dotenv").config().parsed;
 const fireBaseApp = require('firebase/app');
 
 //connecting to the firebase
-var config = {
+const firebaseConfig = {
 	apiKey: envVar.fireBase_API,
 	authDomain: envVar.fireBase_authDomain,
-	databaseURL: envVar.fireBase_DatabaseURL,
-	storageBucket: envVar.fireBase_StorageBucket
+	projectId: envVar.fireBase_projectid,
+	storageBucket: envVar.fireBase_StorageBucket,
+	messagingSenderId: envVar.fireBase_messagingSenderId,
+	appId: envVar.fireBase_appId,
 };
 
-fireBaseApp.initializeApp(config);
+fireBaseApp.initializeApp(firebaseConfig);
 
+const app = express();
+
+app.use(cors());
+app.use(express.json())
 
 app.use('/api/auth',require('./routes/auth'));
 app.use('/api/chat',require('./routes/sendMsg'));

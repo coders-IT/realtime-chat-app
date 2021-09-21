@@ -5,3 +5,5 @@ router.get("/", (req, resp) => {
 
 
 })
+
+module.exports=router;
