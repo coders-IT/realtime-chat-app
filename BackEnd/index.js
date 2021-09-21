@@ -17,6 +17,10 @@ var config = {
 fireBaseApp.initializeApp(config);
 
 
+app.use('/api/auth',require('./routes/auth'));
+app.use('/api/chat',require('./routes/sendMsg'));
+// some more routes can be added
+
 
 app.listen(5000, () => {
 	console.log("Listning to port 5000")
