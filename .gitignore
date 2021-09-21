@@ -24,4 +24,4 @@ yarn-error.log*
 /Firebase-database.txt
 /BackEnd/node_modules
 
-/.vs
+.vs
