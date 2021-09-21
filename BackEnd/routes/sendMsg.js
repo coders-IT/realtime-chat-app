@@ -24,7 +24,7 @@ router.get("/getMessage", getUserName, async (req, resp) => {
 	const baseRef = database.ref(dbRealTime, `/${user}`)
 
 	database.onValue(baseRef, (snapshot) => {
-		var data = [snapshot];
+		var data = [snapshot.val()];
 		resp.send(data);
 	});
 })
