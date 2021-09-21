@@ -51,7 +51,7 @@ router.post('/createuser',async (req,res)=>{
     }
 })
 
-router.get('/login',async (req,res)=>{
+router.post('/login',async (req,res)=>{
     try{
         const username = req.body.username;
         const password = req.body.password;
