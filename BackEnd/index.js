@@ -31,5 +31,5 @@ app.use('/api/people', require('./routes/people'));
 
 
 app.listen(5000, () => {
-	console.log("Listning to port 5000")
+	console.log("Listening to port 5000")
 })

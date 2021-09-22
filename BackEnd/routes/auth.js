@@ -27,13 +27,15 @@ router.post('/createuser',async (req,res)=>{
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(password,salt);
 
+		var dt = new Date();
+      
         await setDoc(doc(db,"users",username),{
             username: username,
             name: name,
             password: secPass,
             phone: phone,
-            createdOn: serverTimestamp(),
-            lastSeen: serverTimestamp(),
+            createdOn: dt.getTime(),
+            lastSeen: dt.getTime(),
             profilePicUrl: "",
             settings: {},
             chats : []

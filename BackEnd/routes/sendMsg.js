@@ -51,24 +51,25 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		} else user = req.body.user + user;
 
 		//collection name got
+		
+		var dt = new Date();
 
 		const msgBody = {
 			"user1": userData.username,
 			"user2": req.body.user,
 			"message": req.body.message,
 			"reply": req.body.reply,
-			"time": new Date(),
-			"type": req.body.type
+			"time": dt.getTime(),
+			"type": req.body.type,  // type currently supports - 'text'
+			"newprop": (userData.username+req.body.user),
 		}
 
 		//creating message id
-		var dt = new Date();
 		var msgID = parseInt(dt.getTime() * 10 * Math.random())
 		//created
-
 		database.set(database.ref(dbRealTime, `${user}/${msgID}`), msgBody);
-		resp.send("Message Send");
-	} catch {
+		resp.status(200).send("Message Send");
+	} catch(error) {
 		resp.status(400).send("Something Wrong! Please try again after some time")
 	}
 
