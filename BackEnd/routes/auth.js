@@ -61,8 +61,11 @@ router.post('/login',async (req,res)=>{
         const userSnap = await getDoc(usersRef);
         
         console.log(userSnap.data());
-        if(!userSnap.exists())   return res.status(400).json({'error':'Please register with us first'});
-        if(!bcrypt.compareSync(password,userSnap.data().password)) res.status(400).json({'error':"incorrect password"});
+
+        if (!userSnap.exists() || !bcrypt.compareSync(password, userSnap.data().password)) {
+            res.status(400).json({ 'error': "Please LogIn with valid credentials" });
+            return;
+        }
         
         const data = {
             user:{username}

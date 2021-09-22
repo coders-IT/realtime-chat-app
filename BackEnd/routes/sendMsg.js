@@ -7,64 +7,70 @@ const getUserName = require('../middleware/authID');
 
 router.get("/getMessage", getUserName, async (req, resp) => {
 
-	const db = firestore.getFirestore();
-	const ref = firestore.doc(db, "users", req.username);
-	const userDoc = await firestore.getDoc(ref);
-	const userData = userDoc.data();
+	try {
+		const db = firestore.getFirestore();
+		const ref = firestore.doc(db, "users", req.username);
+		const userDoc = await firestore.getDoc(ref);
+		const userData = userDoc.data();
 
-	const dbRealTime = database.getDatabase();
+		const dbRealTime = database.getDatabase();
 
-	let user = userData.username;
+		let user = userData.username;
 
-	if (user < req.body.user) {
-		user += req.body.user;
-	} else user = req.body.user + user;
+		if (user < req.body.user) {
+			user += req.body.user;
+		} else user = req.body.user + user;
 
 
-	const baseRef = database.ref(dbRealTime, `/${user}`)
+		const baseRef = database.ref(dbRealTime, `/${user}`)
 
-	database.onValue(baseRef, (snapshot) => {
-		var data = [snapshot.val()];
-		resp.send(data);
-	});
+		database.onValue(baseRef, (snapshot) => {
+			var data = [snapshot.val()];
+			resp.send(data);
+		});
+	} catch {
+		resp.status(400).send({ error: "Something Wrong! Please try again after some time" });
+	}
 })
 
 
 router.post("/sendMessage", getUserName, async (req, resp) => {
+	try {
+		const db = firestore.getFirestore();
+		const ref = firestore.doc(db, "users", req.username);
+		const userDoc = await firestore.getDoc(ref);
+		const userData = userDoc.data();
 
-	const db = firestore.getFirestore();
-	const ref = firestore.doc(db, "users", req.username);
-	const userDoc = await firestore.getDoc(ref);
-	const userData = userDoc.data();
+		const dbRealTime = database.getDatabase();
 
-	const dbRealTime = database.getDatabase();
+		//getting user name from jwt tokken and getting the collection name 
+		let user = userData.username;
 
-	//getting user name from jwt tokken and getting the collection name 
-	let user = userData.username;
+		if (user < req.body.user) {
+			user += req.body.user;
+		} else user = req.body.user + user;
 
-	if (user < req.body.user) {
-		user += req.body.user;
-	} else user = req.body.user + user;
+		//collection name got
 
-	//collection name got
+		const msgBody = {
+			"user1": userData.username,
+			"user2": req.body.user,
+			"message": req.body.message,
+			"reply": req.body.reply,
+			"time": new Date(),
+			"type": req.body.type
+		}
 
-	const msgBody = {
-		"user1": userData.username,
-		"user2": req.body.user,
-		"message": req.body.message,
-		"reply": req.body.reply,
-		"time": new Date(),
-		"type":req.body.type
+		//creating message id
+		var dt = new Date();
+		var msgID = parseInt(dt.getTime() * 10 * Math.random())
+		//created
+
+		database.set(database.ref(dbRealTime, `${user}/${msgID}`), msgBody);
+		resp.send("Message Send");
+	} catch {
+		resp.status(400).send("Something Wrong! Please try again after some time")
 	}
-
-	//creating message id
-	var dt = new Date();
-	var msgID = parseInt(dt.getTime() * 10 * Math.random())
-	//created
-	console.log(`${user}/${msgID}`);
-
-	database.set(database.ref(dbRealTime, `${user}/${msgID}`), msgBody);
-	resp.send("Message Send");
 
 })
 
