@@ -81,8 +81,6 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		})
 		
 		const refU2 = firestore.doc(db, "users", req.body.user);
-		// const userDocU2 = await firestore.getDoc(refU2);
-		// const userDataU2 = userDoc.data();
 		const userDataU2 = (await firestore.getDoc(refU2)).data();
 		let chatsU2=userDataU2.chats;
 		const idxU2=chatsU2.indexOf(req.username);
