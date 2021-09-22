@@ -36,6 +36,7 @@ router.post('/createuser',async (req,res)=>{
             lastSeen: serverTimestamp(),
             profilePicUrl: "",
             settings: {},
+            chats : []
         });
 
         const data={
