@@ -5,7 +5,7 @@ const database = require("firebase/database");
 const getUserName = require('../middleware/authID');
 
 
-router.get("/getMessage", getUserName, async (req, resp) => {
+router.post("/getMessage", getUserName, async (req, resp) => {
 
 	try {
 		const db = firestore.getFirestore();
@@ -45,16 +45,16 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 
 		//getting user name from jwt tokken and getting the collection name 
 		let user = userData.username;
-		if(user === req.body.user){
-			resp.status(400).json({'error':"Can't message yourself"});
+		if (user === req.body.user) {
+			resp.status(400).json({ 'error': "Can't message yourself" });
 			return;
-		}	
+		}
 		if (user < req.body.user) {
 			user += req.body.user;
 		} else user = req.body.user + user;
 
 		//collection name got
-		
+
 		var dt = new Date();
 
 		const msgBody = {
@@ -72,19 +72,19 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		database.set(database.ref(dbRealTime, `${user}/${msgID}`), msgBody);
 
 		// dragging chat to top for both users
-		let chats=userData.chats;
-		const idx=chats.indexOf(req.body.user);
-		if(idx>=0)	chats.splice(idx,1);
+		let chats = userData.chats;
+		const idx = chats.indexOf(req.body.user);
+		if (idx >= 0) chats.splice(idx, 1);
 		chats.unshift(req.body.user);
 		firestore.updateDoc(ref, {
 			chats: chats
 		})
-		
+
 		const refU2 = firestore.doc(db, "users", req.body.user);
 		const userDataU2 = (await firestore.getDoc(refU2)).data();
-		let chatsU2=userDataU2.chats;
-		const idxU2=chatsU2.indexOf(req.username);
-		if(idxU2>=0)	chatsU2.splice(idxU2,1);
+		let chatsU2 = userDataU2.chats;
+		const idxU2 = chatsU2.indexOf(req.username);
+		if (idxU2 >= 0) chatsU2.splice(idxU2, 1);
 		chatsU2.unshift(req.username);
 		firestore.updateDoc(refU2, {
 			chats: chatsU2
@@ -92,10 +92,10 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 
 
 		resp.status(200).send("Message Sent");
-	} catch(error) {
+	} catch (error) {
 		resp.status(400).send("Something Wrong! Please try again after some time")
 	}
 
 })
 
-module.exports=router;
+module.exports = router;

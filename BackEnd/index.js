@@ -1,5 +1,5 @@
 const express = require("express");
-const cors=require('cors');
+const cors = require('cors');
 
 //dotenv is a module to set environment variables automaticlly from the .env file
 const envVar = require("dotenv").config().parsed;
@@ -23,7 +23,7 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
-app.use('/api/auth',require('./routes/auth'));
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/chat', require('./routes/sendMsg'));
 app.use('/api/people', require('./routes/people'));
 app.use('/api/settings', require('./routes/settings'));
