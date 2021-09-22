@@ -9,13 +9,9 @@ const getUserName = async (req, resp, next) => {
 		req.username = decoded.user.username;
 
 		// updating last seen
-		const db = firestore.getFirestore();
-		const ref = firestore.doc(db, "users", req.username);
-		const userData = (await firestore.getDoc(ref)).data();
-
-		var dt = new Date();
+		const ref = firestore.doc(firestore.getFirestore(), "users", req.username);
 		firestore.updateDoc(ref, {
-			lastSeen:dt.getTime()
+			lastSeen: new Date().getTime()
 		});
 
 		next();

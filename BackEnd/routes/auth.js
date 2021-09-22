@@ -2,7 +2,7 @@ const express=require('express');
 const router=express.Router();
 const bcrypt=require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { getFirestore,setDoc, doc,serverTimestamp, getDoc } =  require('firebase/firestore');
+const { getFirestore,setDoc, doc,serverTimestamp, getDoc, updateDoc } =  require('firebase/firestore');
 
 
 router.post('/createuser',async (req,res)=>{
@@ -69,6 +69,10 @@ router.post('/login',async (req,res)=>{
             res.status(400).json({ 'error': "Please LogIn with valid credentials" });
             return;
         }
+
+		updateDoc(usersRef, {
+			lastSeen: new Date().getTime()
+		});
         
         const data = {
             user:{username}
