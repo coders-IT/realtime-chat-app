@@ -24,7 +24,9 @@ app.use(cors());
 app.use(express.json())
 
 app.use('/api/auth',require('./routes/auth'));
-app.use('/api/chat',require('./routes/sendMsg'));
+app.use('/api/chat', require('./routes/sendMsg'));
+app.use('/api/people', require('./routes/people'));
+
 // some more routes can be added
 
 
