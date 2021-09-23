@@ -22,7 +22,7 @@ export default function ChatList() {
 
     return (
         <div className="chat-list" style={{ overflowY: "scroll" }}>
-            <div className="header header-chat-list chat-list-card">
+            <div className="header-chat header-chat-list chat-list-card">
                 <img className="profile-pic" src={userDetail.profilePicUrl} alt={userDetail.name} />
                 <div className="chat-user">
                     {userDetail.name}

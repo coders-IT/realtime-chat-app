@@ -60,9 +60,12 @@ code {
 .chat-preview > div {
   margin: 5px;
 }
+.header-chat{
+    height:90px;
+}
 .chat-user {
-  font-weight: 900;
-  font-size: 1.1rem;
+    font-weight: 900;
+    font-size: 1.1rem;
 }
 .chat-last-message {
   font-weight: 100;
