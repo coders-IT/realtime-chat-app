@@ -5,18 +5,23 @@ import ChatListCard from './ChatListCard';
 export default function ChatList() {
     const { userDetail, chats, mapChats, users } = useContext(userContext);
     const [chatUsers, setChatUsers] = useState([]);
+
     useEffect(() => {
         mapChats();
     }, []);
     useEffect(() => {
         setChatUsers([]);
         let arr = [];
-        for (let i in chats) arr.push(i)
+        chats.forEach((key,val)=>{
+            arr.push(val)
+        })
+
         setChatUsers(arr);
     }, [chats]);
     // declare imgleturl before uncommenting line 36 to line 41 
+
     return (
-        <div className="chat-list">
+        <div className="chat-list" style={{ overflowY: "scroll" }}>
             <div className="header header-chat-list chat-list-card">
                 <img className="profile-pic" src={userDetail.profilePicUrl} alt={userDetail.name} />
                 <div className="chat-user">
@@ -25,13 +30,16 @@ export default function ChatList() {
             </div>
             <div className="list">
                 {chatUsers.map((user) => {
-                    let message, userName, imgUrl;
-                    for (let i in chats[user][0]) {
-                        message = chats[user][0][i].message;
-                        userName = users.get(user).name;
-                        imgUrl = users.get(user).profilePicUrl;
+                    let message = "Say Hello", userName, imgUrl;
+                    var last;
+                    if (chats.get(user)[0]) {
+                        for (var i in chats.get(user)[0]) last = i;
+                        message = chats.get(user)[0][last].message;
                     }
-                    return <ChatListCard message={message} user={userName} imgUrl={imgUrl} />
+                    userName = users.get(user).name;
+                    imgUrl = users.get(user).profilePicUrl;
+
+                    return <ChatListCard message={message} user={userName} uniqName={user} imgUrl={imgUrl} />
                 })}
                 {/* <ChatListCard user="Bhannasa" message="Hi there!" imgUrl={imgleturl}/>
                 <ChatListCard user="Bhannasa" message="Hi there1!" imgUrl={imgleturl}/>

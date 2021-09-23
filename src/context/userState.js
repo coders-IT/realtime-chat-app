@@ -3,11 +3,12 @@ import userContext from './userContext';
 
 const UserState = (props) => {
     const [userDetail, setUserDetail] = useState({ username: "Deepak" });    //user data from getUser endpoint
-    const [chats, setChats] = useState(null); // map of user name to their chats
+    const [chats, setChats] = useState(new Map()); // map of user name to their chats
     const [users, setUsers] = useState(new Map());
+    const [message, setmessage] = useState([])
+    const [chatWith, setchatWith] = useState("");
     //TODO getjwt from local storage
-    let jwtTokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYmhhbnNhIn0sImlhdCI6MTYzMjM0NzY3NH0.6dlz4uGaws_7cylehL8R95HCvme7L_5g48G7AbEKjXE";
-    jwtTokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjMyMzA2MDc2fQ.IXNH2WwFTe7YVodRLTG8n7EXbIj0yn47TKbBK4GXCvc";
+    let jwtTokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiZGsxMDExMjAwMiJ9LCJpYXQiOjE2MzI0MzQ2NzV9.ySLCc5JgbhUZ17pymOSjKQqBcYCG0w6PMmw0qPXHlaU";
     const getChatData = async (user) => {
 
         const bodyData = {
@@ -56,17 +57,19 @@ const UserState = (props) => {
         var chatMap = new Map();
         let userMap = new Map();
         for (var i of chatList) {
-            chatMap[i] = await getChatData(i);
+            const data = await getChatData(i);
+            chatMap.set(i, data);
             let userAbout = await getUserData(i);
             userMap.set(i, userAbout);
             console.info("info:", i, userAbout);
         }
+        console.log(chatMap);
         setUsers(userMap);
         setChats(chatMap);
     }
 
     return (
-        <userContext.Provider value={{ userDetail, mapChats, users, chats, jwtTokken }}>
+        <userContext.Provider value={{ userDetail, mapChats, users, chats, jwtTokken, message, setmessage, chatWith, setchatWith }}>
             {props.children}
         </userContext.Provider>
     )

@@ -26,7 +26,9 @@ router.post("/getMessage", getUserName, async (req, resp) => {
 
 		database.onValue(baseRef, (snapshot) => {
 			var data = [snapshot.val()];
-			resp.status(200).send(data);
+			resp.status(200);
+			resp.send(data);
+			return;
 		});
 	} catch {
 		resp.status(400).json({ error: "Something Wrong! Please try again after some time" });
@@ -71,7 +73,7 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		//created
 		database.set(database.ref(dbRealTime, `${user}/${msgID}`), msgBody);
 
-		// dragging chat to top for both users
+/*		// dragging chat to top for both users
 		let chats = userData.chats;
 		const idx = chats.indexOf(req.body.user);
 		if (idx >= 0) chats.splice(idx, 1);
@@ -88,11 +90,12 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		chatsU2.unshift(req.username);
 		firestore.updateDoc(refU2, {
 			chats: chatsU2
-		})
+		})*/
 
 
-		resp.status(200).send("Message Sent");
+		resp.status(200).send({"result" : "Message Sent"});
 	} catch (error) {
+		console.log(error);
 		resp.status(400).json({ "error": "Something Wrong! Please try again after some time" })
 	}
 

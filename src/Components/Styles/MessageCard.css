@@ -1,0 +1,48 @@
+#reply{
+    background-color: #60a5fa;
+    padding:5px 15px;
+    border-radius: 3px;
+    box-shadow:1px 1px 10px #1d4fd8e3 inset, -1px -1px 10px #1d4fd8d8 inset;
+    min-height: 30px;
+    line-height: 30px;
+}
+#content{
+    background-color: #1d4ed8;
+    font-family: 'Merriweather', serif;
+    color: white;
+    border-radius: 3px;
+    font-size: 15px;
+}
+#desc{
+    padding:5px 10px;
+    line-height: 30px;
+    min-height: 30px;
+}
+#details{
+    text-align: end;
+    padding: 10px;
+}
+#main{
+    width: 33%;
+    background-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    height:fit-content;
+    margin: 5px;
+}
+#sender{
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.recived{
+    width:100%;
+    display:flex;
+    justify-content:left;
+}
+.sent{
+    width:100%;
+    display:flex;
+    justify-content:right;
+}

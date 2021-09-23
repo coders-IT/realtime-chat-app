@@ -1,0 +1,50 @@
+#sendMsg {
+	width:stretch;
+	background-color: grey;
+	height: 10%;
+	border-radius:10px;
+}
+
+#whole {
+	background-color: antiquewhite;
+	width: stretch;
+	height:stretch;
+	border-bottom-right-radius: 10px;
+	padding: 10px;
+	display: flex;
+	justify-content: space-evenly;
+	margin:auto;
+}
+
+#message {
+	width: 85%;
+	height: 100%;
+	border:none;
+	border-radius: 5px;
+	display: inline-block;
+	padding-left:10px;
+}
+
+#send {
+	font-size: 40px;
+	height: 100%;
+	line-height: 100%;
+	margin-left: 10px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+#replyMsg {
+	width: 96%;
+	padding: 10px;
+	padding-left: 40px;
+	height: 40px;
+	line-height: 40px;
+	background-color: azure;
+}
+
+#cancel {
+	position: absolute;
+	right: 80px;
+	font-size: 30px;
+}

@@ -36,7 +36,7 @@ router.post("/getUser", getUserName, async (req, resp) => {
 		const ref = firestore.doc(db, "users", req.body.user);
 		const userDoc = await firestore.getDoc(ref);
 		const userData = userDoc.data();
-
+		console.log(userData, req.body.user);
 		resp.status(200).json({ 'profilePicUrl': userData.profilePicUrl, 'name': userData.name, 'lastSeen': userData.lastSeen });
 
 	} catch (error) {

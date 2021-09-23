@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -18,9 +19,9 @@ code {
   border: 2px solid black;
   display: flex;
 }
-.main > div {
+/*.main > div {
   padding: 10px;
-}
+}*/
 .chat-list {
   width: 40%;
   border-right: 1px solid black;
@@ -29,7 +30,7 @@ code {
   width: 60%;
 }
 .header {
-  height: 90px;
+  height: 10%;
   background-color: #666 !important;
   margin: 3px;
   border-radius: 5px;
