@@ -22,16 +22,18 @@ router.post('/createuser', async (req, res) => {
 
         if (userSnap.exists()) {
             res.status(400).json({ 'error': 'Try another username' })
+            return;
         }
         // console.log(req.body);
         if (username.length < 5 || password.length < 5 || password != cpassword || phone.length != 10) {
             res.status(400).json({ 'error': 'Enter valid credentials' });
+            return;
         }
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(password, salt);
 
         var dt = new Date();
-
+        const noImage = "https://www.pngkey.com/png/full/204-2049354_ic-account-box-48px-profile-picture-icon-square.png";
         await setDoc(doc(db, "users", username), {
             username: username,
             name: name,
@@ -39,7 +41,7 @@ router.post('/createuser', async (req, res) => {
             phone: phone,
             createdOn: dt.getTime(),
             lastSeen: dt.getTime(),
-            profilePicUrl: "",
+            profilePicUrl: noImage,
             settings: {},
             chats: [],
             online: true
@@ -67,7 +69,6 @@ router.post('/login', async (req, res) => {
         const usersRef = doc(db, "users", username);
         const userSnap = await getDoc(usersRef);
 
-        console.log(userSnap.data());
 
         if (!userSnap.exists() || !bcrypt.compareSync(password, userSnap.data().password)) {
             res.status(400).json({ 'error': "Please LogIn with valid credentials" });
@@ -115,7 +116,7 @@ router.post("/authanticate", getUserName, async (req, resp) => {
         }
     } catch {
         resp.status(404).send({ error: "User not found" });
-	}
+    }
 })
 
 module.exports = router;

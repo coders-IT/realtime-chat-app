@@ -19,7 +19,6 @@ router.post("/addPeople", getUserName, async (req, resp) => {
 			return;
 		}
 		arr.push(req.body.user);
-		console.log(userData);
 		updateDoc(ref, {
 			chats: userData.chats
 		})
@@ -30,21 +29,21 @@ router.post("/addPeople", getUserName, async (req, resp) => {
 	}
 })
 
-router.get("/getPeople", getUserName, async (req, resp) => {
+router.post("/getUser", getUserName, async (req, resp) => {
 
 	try {
 		const db = firestore.getFirestore();
-		const ref = firestore.doc(db, "users", req.username);
+		const ref = firestore.doc(db, "users", req.body.user);
 		const userDoc = await firestore.getDoc(ref);
 		const userData = userDoc.data();
 
-		resp.send(userData.chats);
+		resp.status(200).json({ 'profilePicUrl': userData.profilePicUrl, 'name': userData.name, 'lastSeen': userData.lastSeen });
 
-	} catch {
+	} catch (error) {
+		console.log(error);
 		resp.status(400).send({ error: "Something Wrong! Please try again after some time" });
 	}
 })
-
 
 
 module.exports = router;

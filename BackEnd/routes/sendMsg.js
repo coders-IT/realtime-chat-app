@@ -26,10 +26,10 @@ router.post("/getMessage", getUserName, async (req, resp) => {
 
 		database.onValue(baseRef, (snapshot) => {
 			var data = [snapshot.val()];
-			resp.send(data);
+			resp.status(200).send(data);
 		});
 	} catch {
-		resp.status(400).send({ error: "Something Wrong! Please try again after some time" });
+		resp.status(400).json({ error: "Something Wrong! Please try again after some time" });
 	}
 })
 
@@ -67,7 +67,7 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		}
 
 		//creating message id
-		var msgID = parseInt(dt.getTime() * 10 * Math.random())
+		var msgID = parseInt(dt.getTime() * 1000 + dt.getMilliseconds())
 		//created
 		database.set(database.ref(dbRealTime, `${user}/${msgID}`), msgBody);
 
@@ -93,7 +93,7 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 
 		resp.status(200).send("Message Sent");
 	} catch (error) {
-		resp.status(400).send("Something Wrong! Please try again after some time")
+		resp.status(400).json({ "error": "Something Wrong! Please try again after some time" })
 	}
 
 })

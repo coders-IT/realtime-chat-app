@@ -1,13 +1,70 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.main {
+  border-radius: 10px;
+  margin: 1vh;
+  height: 98vh;
+  border: 2px solid black;
+  display: flex;
+}
+.main > div {
+  padding: 10px;
+}
+.chat-list {
+  width: 40%;
+  border-right: 1px solid black;
+}
+.chat {
+  width: 60%;
+}
+.header {
+  height: 90px;
+  background-color: #666 !important;
+  margin: 3px;
+  border-radius: 5px;
+}
+.header-chat-list {
+  flex-direction: column !important;
+  flex-basis: 2;
+}
+.chat-list-card {
+  border-radius: 5px;
+  background-color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px;
+  padding: 5px;
+}
+.profile-pic {
+  height: 60px;
+  border-radius: 100px;
+}
+.chat-preview {
+  padding-left: 8px;
+  margin: auto;
+  margin-left: 3px;
+}
+.chat-preview > div {
+  margin: 5px;
+}
+.chat-user {
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+.chat-last-message {
+  font-weight: 100;
+  height: 1.4rem;
+  overflow: hidden;
 }
