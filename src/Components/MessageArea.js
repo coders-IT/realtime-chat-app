@@ -21,7 +21,7 @@ export default function MessageArea() {
                     })
                 }
             </div>
-            {/* <SendBox/> */}
+            <SendBox/>
         </>
     )
 }
