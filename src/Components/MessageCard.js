@@ -7,16 +7,23 @@ export default function MessageCard(props) {
     var flt,username;
     if (props.message.user1 === data.userDetail.username) {
         flt = "sent";
-
-    } else flt = "recived";
-
+        username = data.userDetail.name;
+        console.log("orignal name", username);
+    } else {
+        flt = "recived";
+        username = data.chatWith.name;
+    }
+    const dt = new Date(props.message.time);
     if (props.message.reply == null) {
         return (
             <div className={`${flt}`}>
                 <div id="main">
-                    <div id="sender">{data.userDetail.username}</div>
+                    <div id="sender">{username}</div>
                     <div id="content">
                         <div id="desc">{props.message.message}</div>
+                    </div>
+                    <div className="time">
+                        {`${dt.getHours() % 12 < 10 ? "0" : ""}${dt.getHours() % 12}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()}:${dt.getSeconds()<10?"0":""}${dt.getSeconds()} ${dt.getHours() >=12 ?"PM":"AM"}`}
                     </div>
                 </div>
             </div>
@@ -25,10 +32,13 @@ export default function MessageCard(props) {
         return (
             <div className={`${flt}`}>
                 <div id="main">
-                    <div id="sender">{data.userDetail.username}</div>
+                    <div id="sender">{username}</div>
                     <div id="content">
                         <div id="reply">{props.message.reply}</div>
                         <div id="desc">{props.message.message}</div>
+                    </div>
+                    <div className="time">
+                        {`${dt.getHours() % 12 < 10 ? "0" : ""}${dt.getHours() % 12}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()}:${dt.getSeconds() < 10 ? "0" : ""}${dt.getSeconds()} ${dt.getHours() >= 12 ? "PM" : "AM"}`}
                     </div>
                 </div>
             </div>

@@ -47,3 +47,10 @@
     display:flex;
     justify-content:right;
 }
+
+.time{
+    color:white;
+    text-align:end;
+    padding-right:5px;
+    padding-top:3px;
+}

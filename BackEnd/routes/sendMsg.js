@@ -91,7 +91,7 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		})
 
 
-		resp.status(200).send({"result" : "Message Sent"});
+		resp.status(200).send(msgBody);
 	} catch (error) {
 		console.log(error);
 		resp.status(400).json({ "error": "Something Wrong! Please try again after some time" })

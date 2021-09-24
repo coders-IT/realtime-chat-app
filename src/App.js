@@ -1,18 +1,26 @@
 import { useContext, useEffect } from 'react';
 import './App.css';
-import ChatList from './Components/ChatList';
-import Chat from './Components/Chat';
-import userContext from './context/userContext';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import SignUp from './Components/SignUp';
+import MainArea from './Components/MainArea';
 
 function App() {
     return (
-        <>
-            <div className="main">
-                <ChatList />
-                <Chat />
-            </div>
-        </>
-
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    <MainArea/>
+                </Route>
+                <Route exact path="/signUp">
+                    <SignUp />
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 

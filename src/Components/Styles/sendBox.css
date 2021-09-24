@@ -32,6 +32,7 @@
 	margin-left: 10px;
 	vertical-align: middle;
 	display: inline-block;
+	cursor:pointer;
 }
 
 #replyMsg {

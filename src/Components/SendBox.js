@@ -35,7 +35,7 @@ export default function SendBox() {
             "message": message.value,
             "time": dt.getTime(),
             "token": data.jwtTokken,
-            "user": data.chatWith,
+            "user": data.chatWith.username,
             "type": "text",
             "reply":null
         }
@@ -49,10 +49,16 @@ export default function SendBox() {
                 body: JSON.stringify(msgData)
             });
             const resp = await chat.json();
-            console.log(resp);
+            var tableName;
+
+            if (data.chatWith.username < data.userDetail.username) tableName = data.chatWith.username + data.userDetail.username;
+            else tableName = data.userDetail.username + data.chatWith.username;
+            var curChat = data.chats.get(tableName);
+            console.log("curchat", curChat, tableName);
+
         } catch (err) {
             console.log(err);
-		}
+        }
 	}
     return (
         <div id="sendMsg">
@@ -61,7 +67,7 @@ export default function SendBox() {
                 <span id="cancel">&#10006;</span>
             </div>*/}
             <div id="whole">
-                <input type="text" id="message" />
+                <input type="text" id="message" placeholder="Type A message" />
                 <i class="material-icons" id="send" onClick={sendMessage}>send</i>
             </div>
         </div>

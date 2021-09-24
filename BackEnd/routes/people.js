@@ -23,7 +23,7 @@ router.post("/addPeople", getUserName, async (req, resp) => {
 			chats: userData.chats
 		})
 
-		resp.send("chat Added Successfully")
+		resp.send({ "success" : "chat Added Successfully"})
 	} catch {
 		resp.status(400).send({ error: "Something Wrong! Please try again after some time" });
 	}

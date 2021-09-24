@@ -98,6 +98,17 @@ router.post("/getUser", getUserName, async (req, resp) => {
     resp.json(userData);
 })
 
+router.post("/getUserWithName", async (req, resp) => {
+    const ref = firestore.doc(firestore.getFirestore(), "users", req.body.username);
+    const userDoc = await firestore.getDoc(ref);
+    if (!userDoc.exists()) {
+        resp.status(404).send({ error: "User Not Avilable" });
+        return;
+	}
+    const userData = userDoc.data();
+    resp.json(userData);
+})
+
 
 router.post("/authanticate", getUserName, async (req, resp) => {
     try {

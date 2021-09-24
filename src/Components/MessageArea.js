@@ -7,21 +7,26 @@ import "./Styles/MessageArea.css"
 export default function MessageArea() {
     const data = useContext(userContext)
     const message = [];
-    useEffect(()=>{
-        let div=document.getElementById('msgArea');
-        console.log('scrolled');
-        div.scrollTop = div.scrollHeight - div.clientHeight;
+    useEffect(() => {
+        if (data.chatWith !== "") {
+            let div = document.getElementById('msgArea');
+            console.log('scrolled');
+            div.scrollTop = div.scrollHeight - div.clientHeight;
+        }
     })
-    return (
-        <>
-            <div id="msgArea">
-                {
-                    data.message.map((elem) => {
-                        return <MessageCard message={elem}/>
-                    })
-                }
-            </div>
-            <SendBox/>
-        </>
-    )
+    if (data.chatWith === "") return (<></>)
+    else {
+        return (
+            <>
+                <div id="msgArea">
+                    {
+                        data.message.map((elem) => {
+                            return <MessageCard message={elem} />
+                        })
+                    }
+                </div>
+                <SendBox />
+            </>
+        )
+    }
 }

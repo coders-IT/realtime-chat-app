@@ -1,0 +1,19 @@
+#overLay{
+	width:100vw;
+	height:100vh;
+	background-color:rgb(0 0 0 / 0.63);
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+
+#chatForm{
+	margin:auto;
+	margin-top:50px;
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-around;
+	background-color:cadetblue;
+	padding:20px;
+	
+}

@@ -1,0 +1,88 @@
+#attribute{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+#loginForm{
+    background-image: url("../Images/5026563.jpg");
+    width:100vw;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+#submit:hover {
+    background-color: #57a8f7;
+}
+#form{
+    background-color: rgba(0, 0, 0, 0.678);
+    width: 500px;
+    height: 270px;
+    margin: auto;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px black;
+    position: relative;
+    top: 20%;
+    padding: 10px;
+}
+
+#username, #password, #submit, #name, #phoneNo, #cpassword {
+    border: none;
+    width: 270px;
+    height: 30px;
+    margin: 5px;
+    justify-self: center;
+    padding-left: 10px;
+    border-radius: 3px;
+    padding-right: 10px;
+    box-shadow: 1px 1px 1px black;
+}
+#submit {
+    background-color: dodgerblue;
+    color: white;
+    width: 290px;
+    cursor: pointer;
+}
+#container{
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    position: relative;
+    top: 30px;
+}
+
+#signup{
+    text-align: center;
+    color: white;
+}
+
+@media only screen and (max-width: 1000px) {
+    #username, #password, #submit, #name, #phoneNo, #cpassword {
+        border: none;
+        width: 200px;
+        height: 30px;
+        margin: 5px;
+        justify-self: center;
+        padding-left: 10px;
+        border-radius: 3px;
+        padding-right: 10px;
+        box-shadow: 1px 1px 1px black;
+    }
+    #submit{
+        width: 220px;
+    }
+    #form{
+        background-color: rgba(0, 0, 0, 0.678);
+        width: 60vw;
+        height: 270px;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px black;
+        position: relative;
+        top: 20%;
+        padding:10px 30px;
+    }
+}  

@@ -11,10 +11,10 @@ const UserState = (props) => {
     const [users, setUsers] = useState(new Map());
     const [message, setmessage] = useState([])
     const [chatWith, setchatWith] = useState("");
+    const [newChatBox, setnewChatBox] = useState(false);
+    const [chatUsers, setChatUsers] = useState([]);
     //TODO getjwt from local storage
-    let jwtTokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiZGsxMDExMjAwMiJ9LCJpYXQiOjE2MzI0MzQ2NzV9.ySLCc5JgbhUZ17pymOSjKQqBcYCG0w6PMmw0qPXHlaU";
-    
-    jwtTokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjMyMzA2MDc2fQ.IXNH2WwFTe7YVodRLTG8n7EXbIj0yn47TKbBK4GXCvc";
+    const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
     
     const myFun=()=>{
         const firebaseApp = initializeApp({
@@ -97,7 +97,7 @@ const UserState = (props) => {
     }
 
     return (
-        <userContext.Provider value={{ userDetail, mapChats, users, chats, jwtTokken, message, setmessage, chatWith, setchatWith }}>
+        <userContext.Provider value={{ userDetail, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, chatUsers, setChatUsers }}>
             {props.children}
         </userContext.Provider>
     )
