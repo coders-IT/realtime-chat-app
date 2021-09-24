@@ -26,6 +26,9 @@ code {
   width: 40%;
   border-right: 1px solid black;
 }
+.list::-webkit-scrollbar{
+  display: none;
+}
 .chat {
   width: 60%;
 }
@@ -34,6 +37,7 @@ code {
   background-color: #666 !important;
   margin: 3px;
   border-radius: 5px;
+  padding: 0 !important;
 }
 .header-chat-list {
   flex-direction: column !important;

@@ -11,22 +11,22 @@ export default function SendBox() {
 
     //connecting to the firebase
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyD6NLsiYtcLTLSFMNUUzvgPMK950WFLGZY",
-        authDomain: "sampleproject-321915.firebaseapp.com",
-        projectId: "sampleproject-321915",
-        storageBucket: "sampleproject-321915.appspot.com",
-        messagingSenderId: "548884593380",
-        appId: "1:548884593380:web:710aae9537f5b0fcea4af1"
-    };
+    // const firebaseConfig = {
+    //     apiKey: "AIzaSyD6NLsiYtcLTLSFMNUUzvgPMK950WFLGZY",
+    //     authDomain: "sampleproject-321915.firebaseapp.com",
+    //     projectId: "sampleproject-321915",
+    //     storageBucket: "sampleproject-321915.appspot.com",
+    //     messagingSenderId: "548884593380",
+    //     appId: "1:548884593380:web:710aae9537f5b0fcea4af1"
+    // };
 
-    fireBaseApp.initializeApp(firebaseConfig);
-    console.log("connected");
-    const db = database.getDatabase();
+    // fireBaseApp.initializeApp(firebaseConfig);
+    // console.log("connected");
+    // const db = database.getDatabase();
 
-    database.onChildAdded(database.ref(db, "/"), (msg) => {
-        console.log(msg);
-	})
+    // database.onChildAdded(database.ref(db, "/"), (msg) => {
+    //     console.log(msg);
+	// })
 
     const sendMessage = async () => {
         const message = document.getElementById("message");

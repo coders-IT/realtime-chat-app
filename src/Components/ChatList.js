@@ -21,14 +21,14 @@ export default function ChatList() {
     // declare imgleturl before uncommenting line 36 to line 41 
 
     return (
-        <div className="chat-list" style={{ overflowY: "scroll" }}>
-            <div className="header-chat header-chat-list chat-list-card">
+        <div className="chat-list">
+            <div className="header header-chat-list chat-list-card">
                 <img className="profile-pic" src={userDetail.profilePicUrl} alt={userDetail.name} />
                 <div className="chat-user">
                     {userDetail.name}
                 </div>
             </div>
-            <div className="list">
+            <div className="list" style={{ overflowY: "scroll" }}>
                 {chatUsers.map((user) => {
                     let message = "Say Hello", userName, imgUrl;
                     var last;
