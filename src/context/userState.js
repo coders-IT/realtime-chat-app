@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import userContext from './userContext';
 
+import { initializeApp } from "firebase/app";
+import { getMessaging, onMessage, getToken } from "firebase/messaging";
+import { getDatabase, ref, onValue} from "firebase/database";
+
 const UserState = (props) => {
     const [userDetail, setUserDetail] = useState({ username: "Deepak" });    //user data from getUser endpoint
     const [chats, setChats] = useState(new Map()); // map of user name to their chats
@@ -9,6 +13,29 @@ const UserState = (props) => {
     const [chatWith, setchatWith] = useState("");
     //TODO getjwt from local storage
     let jwtTokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiZGsxMDExMjAwMiJ9LCJpYXQiOjE2MzI0MzQ2NzV9.ySLCc5JgbhUZ17pymOSjKQqBcYCG0w6PMmw0qPXHlaU";
+    
+    jwtTokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4ifSwiaWF0IjoxNjMyMzA2MDc2fQ.IXNH2WwFTe7YVodRLTG8n7EXbIj0yn47TKbBK4GXCvc";
+    
+    const myFun=()=>{
+        const firebaseApp = initializeApp({
+            apiKey: "AIzaSyD6NLsiYtcLTLSFMNUUzvgPMK950WFLGZY",
+            authDomain: "sampleproject-321915.firebaseapp.com",
+            databaseURL: "https://sampleproject-321915-default-rtdb.firebaseio.com",
+            projectId: "sampleproject-321915",
+            storageBucket: "sampleproject-321915.appspot.com",
+            messagingSenderId: "652578540292",
+            appId: "1:652578540292:web:99c9bb6692cb52ecbcde51",
+            measurementId: "G-97CERWH4KW"
+        });
+        const db = getDatabase();
+        const chatRef = ref(db, '/');
+        onValue(chatRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log("changed",data);
+            // mapChats();
+        });
+    }
+
     const getChatData = async (user) => {
 
         const bodyData = {
@@ -66,6 +93,7 @@ const UserState = (props) => {
         console.log(chatMap);
         setUsers(userMap);
         setChats(chatMap);
+        myFun();
     }
 
     return (

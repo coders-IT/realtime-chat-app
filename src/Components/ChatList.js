@@ -17,6 +17,8 @@ export default function ChatList() {
         })
 
         setChatUsers(arr);
+        console.log({arr});
+        console.log('chats updated')
     }, [chats]);
     // declare imgleturl before uncommenting line 36 to line 41 
 
@@ -39,7 +41,7 @@ export default function ChatList() {
                     userName = users.get(user).name;
                     imgUrl = users.get(user).profilePicUrl;
 
-                    return <ChatListCard message={message} user={userName} uniqName={user} imgUrl={imgUrl} />
+                    return <ChatListCard chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} />
                 })}
                 {/* <ChatListCard user="Bhannasa" message="Hi there!" imgUrl={imgleturl}/>
                 <ChatListCard user="Bhannasa" message="Hi there1!" imgUrl={imgleturl}/>
