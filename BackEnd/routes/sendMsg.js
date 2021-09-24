@@ -21,16 +21,14 @@ router.post("/getMessage", getUserName, async (req, resp) => {
 			user += req.body.user;
 		} else user = req.body.user + user;
 
-
-		const baseRef = database.ref(dbRealTime, `/${user}`)
-
-		database.onValue(baseRef, (snapshot) => {
-			var data = [snapshot.val()];
-			resp.status(200);
-			resp.send(data);
-			return;
+		const dbRef = database.ref(dbRealTime);
+		database.get(database.child(dbRef, `/${user}`)).then((snapshot) => {
+			console.log(snapshot.val());
+			resp.status(200).send([snapshot.val()]);
 		});
-	} catch {
+
+	} catch(error) {
+		console.log(error);
 		resp.status(400).json({ error: "Something Wrong! Please try again after some time" });
 	}
 })
@@ -73,7 +71,7 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		//created
 		database.set(database.ref(dbRealTime, `${user}/${msgID}`), msgBody);
 
-/*		// dragging chat to top for both users
+		// dragging chat to top for both users
 		let chats = userData.chats;
 		const idx = chats.indexOf(req.body.user);
 		if (idx >= 0) chats.splice(idx, 1);
@@ -90,7 +88,7 @@ router.post("/sendMessage", getUserName, async (req, resp) => {
 		chatsU2.unshift(req.username);
 		firestore.updateDoc(refU2, {
 			chats: chatsU2
-		})*/
+		})
 
 
 		resp.status(200).send({"result" : "Message Sent"});
