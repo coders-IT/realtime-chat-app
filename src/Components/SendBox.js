@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import userContext from '../context/userContext';
 import "./Styles/sendBox.css"
-const fireBaseApp = require('firebase/app');
-const database = require("firebase/database");
+// const fireBaseApp = require('firebase/app');
+// const database = require("firebase/database");
 
 export default function SendBox() {
     const data = useContext(userContext);
@@ -41,20 +41,21 @@ export default function SendBox() {
         }
         message.value = "";
         try {
-            const chat = await fetch("http://localhost:5000/api/chat/sendMessage", {
+            // const chat = await 
+            fetch("http://localhost:5000/api/chat/sendMessage", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(msgData)
             });
-            const resp = await chat.json();
-            var tableName;
+            // const resp = await chat.json();
+            // var tableName;
 
-            if (data.chatWith.username < data.userDetail.username) tableName = data.chatWith.username + data.userDetail.username;
-            else tableName = data.userDetail.username + data.chatWith.username;
-            var curChat = data.chats.get(tableName);
-            console.log("curchat", curChat, tableName);
+            // if (data.chatWith.username < data.userDetail.username) tableName = data.chatWith.username + data.userDetail.username;
+            // else tableName = data.userDetail.username + data.chatWith.username;
+            // var curChat = data.chats.get(tableName);
+            // console.log("curchat", curChat, tableName);
 
         } catch (err) {
             console.log(err);
@@ -68,7 +69,7 @@ export default function SendBox() {
             </div>*/}
             <div id="whole">
                 <input type="text" id="message" placeholder="Type A message" />
-                <i class="material-icons" id="send" onClick={sendMessage}>send</i>
+                <i className="material-icons" id="send" onClick={sendMessage}>send</i>
             </div>
         </div>
     )

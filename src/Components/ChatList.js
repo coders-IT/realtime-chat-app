@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import userContext from '../context/userContext';
 import ChatListCard from './ChatListCard';
 
 export default function ChatList() {
-    const { userDetail, chats, mapChats, users, setnewChatBox, newChatBox, chatUsers, setChatUsers } = useContext(userContext);
+    const { userDetail, chats, mapChats, users, setnewChatBox, chatUsers, setChatUsers } = useContext(userContext);
 
 
     useEffect(() => {
         mapChats();
+        /* eslint-disable */
     }, []);
     useEffect(() => {
         setChatUsers([]);
@@ -15,19 +16,12 @@ export default function ChatList() {
         chats.forEach((key,val)=>{
             arr.push(val)
         })
-
         setChatUsers(arr);
-        console.log({arr});
-        console.log('chats updated')
+        /* eslint-disable */
     }, [chats]);
-    // declare imgleturl before uncommenting line 36 to line 41 
-
-
     const setVisible = () => {
         setnewChatBox(true);
-        console.log(newChatBox);
 	}
-
     return (
         <div className="chat-list">
             <div className="header header-chat-list chat-list-card header-chat">
@@ -47,14 +41,8 @@ export default function ChatList() {
                     userName = users.get(user).name;
                     imgUrl = users.get(user).profilePicUrl;
 
-                    return <ChatListCard chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} />
+                    return <ChatListCard key={userName} chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} />
                 })}
-                {/* <ChatListCard user="Bhannasa" message="Hi there!" imgUrl={imgleturl}/>
-                <ChatListCard user="Bhannasa" message="Hi there1!" imgUrl={imgleturl}/>
-                <ChatListCard user="Bhannasa" message="Hi there are you like coming tomorrow morning or not?" imgUrl={imgleturl}/>
-                <ChatListCard user="Bhannasa" message="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur eveniet perspiciatis necessitatibus, sed nulla natus cupiditate neque quos reiciendis recusandae, placeat similique tempora optio ullam veritatis voluptates. Doloribus, nostrum labore veritatis in consequatur rerum?" imgUrl={imgleturl}/>
-                <ChatListCard user="Bhannasa" message="Hi there3!" imgUrl={imgleturl}/>
-                <ChatListCard user="Bhannasa" message="Hi there4!" imgUrl={imgleturl}/> */}
             </div>
             <div id="newChat" onClick={setVisible}>
                 Start New Chat

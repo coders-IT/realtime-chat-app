@@ -11,7 +11,7 @@ export default function SignUp() {
         const password = document.getElementById("password").value;
         const cpassword = document.getElementById("cpassword").value;
         const phoneNo = document.getElementById("phoneNo").value;
-        const submit = document.getElementById("submit");
+        // const submit = document.getElementById("submit");
 
         const formData = {
             "username": username,

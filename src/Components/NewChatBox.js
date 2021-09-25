@@ -1,4 +1,4 @@
-import react, { useContext } from 'react'
+import { useContext } from 'react'
 import userContext from '../context/userContext'
 import "./Styles/newchatbox.css"
 
@@ -20,15 +20,15 @@ export default function NewChatBox() {
 		if (parsed.error == null) {
 			var newUsers = data.users;
 			newUsers.set(parsed.username, parsed);
-			console.log(newUsers);
+			// console.log(newUsers);
 			data.setUsers(newUsers);
 
 			var newChat = data.chats;
 			newChat.set(parsed.username, []);
 			data.setChats(newChat);
 
-			console.log(data.users);
-			console.log(data.chatUsers);
+			// console.log(data.users);
+			// console.log(data.chatUsers);
 
 			data.setnewChatBox(false);
 			data.setChatUsers(data.chatUsers.concat(parsed.username));

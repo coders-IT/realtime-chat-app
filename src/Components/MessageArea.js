@@ -6,11 +6,10 @@ import "./Styles/MessageArea.css"
 
 export default function MessageArea() {
     const data = useContext(userContext)
-    const message = [];
+    // const message = [];
     useEffect(() => {
         if (data.chatWith !== "") {
             let div = document.getElementById('msgArea');
-            console.log('scrolled');
             div.scrollTop = div.scrollHeight - div.clientHeight;
         }
     })
@@ -21,7 +20,7 @@ export default function MessageArea() {
                 <div id="msgArea">
                     {
                         data.message.map((elem) => {
-                            return <MessageCard message={elem} />
+                            return <MessageCard key={elem.time} message={elem} />
                         })
                     }
                 </div>

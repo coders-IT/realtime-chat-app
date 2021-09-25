@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import userContext from './userContext';
 
-import { initializeApp } from "firebase/app";
-import { getMessaging, onMessage, getToken } from "firebase/messaging";
-import { getDatabase, ref, onValue} from "firebase/database";
+// import { initializeApp } from "firebase/app";
+// import { getMessaging, onMessage, getToken } from "firebase/messaging";
+// import { getDatabase, ref, onValue} from "firebase/database";
 
 const UserState = (props) => {
     const [userDetail, setUserDetail] = useState({ username: "Deepak" });    //user data from getUser endpoint
@@ -17,23 +17,23 @@ const UserState = (props) => {
     const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
     
     const myFun=()=>{
-        const firebaseApp = initializeApp({
-            apiKey: "AIzaSyD6NLsiYtcLTLSFMNUUzvgPMK950WFLGZY",
-            authDomain: "sampleproject-321915.firebaseapp.com",
-            databaseURL: "https://sampleproject-321915-default-rtdb.firebaseio.com",
-            projectId: "sampleproject-321915",
-            storageBucket: "sampleproject-321915.appspot.com",
-            messagingSenderId: "652578540292",
-            appId: "1:652578540292:web:99c9bb6692cb52ecbcde51",
-            measurementId: "G-97CERWH4KW"
-        });
-        const db = getDatabase();
-        const chatRef = ref(db, '/');
-        onValue(chatRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log("changed",data);
-            // mapChats();
-        });
+        // const firebaseApp = initializeApp({
+        //     apiKey: "AIzaSyD6NLsiYtcLTLSFMNUUzvgPMK950WFLGZY",
+        //     authDomain: "sampleproject-321915.firebaseapp.com",
+        //     // databaseURL: "https://sampleproject-321915-default-rtdb.firebaseio.com",
+        //     projectId: "sampleproject-321915",
+        //     storageBucket: "sampleproject-321915.appspot.com",
+        //     messagingSenderId: "652578540292",
+        //     appId: "1:652578540292:web:99c9bb6692cb52ecbcde51",
+        //     measurementId: "G-97CERWH4KW"
+        // });
+        // const db = getDatabase();
+        // const chatRef = ref(db, 'chats/');
+        // onValue(chatRef, (snapshot) => {
+        //     const data = snapshot.val();
+        //     console.log("changed",data);
+        //     // mapChats();
+        // });
     }
 
     const getChatData = async (user) => {
@@ -88,9 +88,9 @@ const UserState = (props) => {
             chatMap.set(i, data);
             let userAbout = await getUserData(i);
             userMap.set(i, userAbout);
-            console.info("info:", i, userAbout);
+            // console.info("info:", i, userAbout);
         }
-        console.log(chatMap);
+        // console.log(chatMap);
         setUsers(userMap);
         setChats(chatMap);
         myFun();

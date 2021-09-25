@@ -1,20 +1,19 @@
 const jwt = require("jsonwebtoken");
-const firestore = require("firebase/firestore");
+const { getDatabase, ref, update  } = require("firebase/database");
 
-const getUserName = async (req, resp, next) => {
+const getUserName =async (req, resp, next) => {
 	try {
 		var decoded = jwt.verify(req.body.token, process.env.JWT_secret);
-
 		req.username = decoded.user.username;
 
 		// updating last seen
-		const ref = firestore.doc(firestore.getFirestore(), "users", req.username);
-		firestore.updateDoc(ref, {
-			lastSeen: new Date().getTime()
-		});
+		const updates={};
+        updates[`users/${req.username}/lastSeen`]=new Date().getTime();
+        update(ref(getDatabase()),updates);
 
 		next();
-	} catch {
+	} catch(error) {
+		console.log(error)
 		resp.status(400).json({ error: "Invaild details" });
 	}
 	
