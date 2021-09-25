@@ -3,11 +3,12 @@ import userContext from '../context/userContext';
 import ChatListCard from './ChatListCard';
 
 export default function ChatList() {
-    const { userDetail, chats, mapChats, users, setnewChatBox, chatUsers, setChatUsers } = useContext(userContext);
+    const { userDetail, chats, mapChats, users, setnewChatBox, chatUsers, setChatUsers, myFun } = useContext(userContext);
 
 
     useEffect(() => {
         mapChats();
+        myFun();
         /* eslint-disable */
     }, []);
     useEffect(() => {

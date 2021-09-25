@@ -7,9 +7,9 @@ const getUserName =async (req, resp, next) => {
 		req.username = decoded.user.username;
 
 		// updating last seen
-		const updates={};
-        updates[`users/${req.username}/lastSeen`]=new Date().getTime();
-        update(ref(getDatabase()),updates);
+		// const updates={};
+        // updates[`users/${req.username}/lastSeen`]=new Date().getTime();
+        // update(ref(getDatabase()),updates);
 
 		next();
 	} catch(error) {

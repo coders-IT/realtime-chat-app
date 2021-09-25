@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import userContext from './userContext';
 
-// import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 // import { getMessaging, onMessage, getToken } from "firebase/messaging";
-// import { getDatabase, ref, onValue} from "firebase/database";
+import { getDatabase, ref, onValue} from "firebase/database";
 
 const UserState = (props) => {
     const [userDetail, setUserDetail] = useState({ username: "Deepak" });    //user data from getUser endpoint
@@ -17,23 +17,23 @@ const UserState = (props) => {
     const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
     
     const myFun=()=>{
-        // const firebaseApp = initializeApp({
-        //     apiKey: "AIzaSyD6NLsiYtcLTLSFMNUUzvgPMK950WFLGZY",
-        //     authDomain: "sampleproject-321915.firebaseapp.com",
-        //     // databaseURL: "https://sampleproject-321915-default-rtdb.firebaseio.com",
-        //     projectId: "sampleproject-321915",
-        //     storageBucket: "sampleproject-321915.appspot.com",
-        //     messagingSenderId: "652578540292",
-        //     appId: "1:652578540292:web:99c9bb6692cb52ecbcde51",
-        //     measurementId: "G-97CERWH4KW"
-        // });
-        // const db = getDatabase();
-        // const chatRef = ref(db, 'chats/');
-        // onValue(chatRef, (snapshot) => {
-        //     const data = snapshot.val();
-        //     console.log("changed",data);
-        //     // mapChats();
-        // });
+        const firebaseApp = initializeApp({
+            apiKey: "AIzaSyCuw7Z7cnh2XpKkkzd8m_nFBL4KZ8GJ2hk",
+            authDomain: "bhannasa-realtime-chat-app.firebaseapp.com",
+            databaseURL: "https://bhannasa-realtime-chat-app-default-rtdb.firebaseio.com",
+            projectId: "bhannasa-realtime-chat-app",
+            storageBucket: "bhannasa-realtime-chat-app.appspot.com",
+            messagingSenderId: "40408807989",
+            appId: "1:40408807989:web:b2538339e5d7d2edd3cf7c"
+        });
+        const db = getDatabase();
+        const chatRef = ref(db, 'chats/');
+        onValue(chatRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log("changed",data);
+            // alert('got');
+            mapChats();
+        });
     }
 
     const getChatData = async (user) => {
@@ -93,11 +93,10 @@ const UserState = (props) => {
         // console.log(chatMap);
         setUsers(userMap);
         setChats(chatMap);
-        myFun();
     }
 
     return (
-        <userContext.Provider value={{ userDetail, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, chatUsers, setChatUsers }}>
+        <userContext.Provider value={{ userDetail, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, chatUsers, setChatUsers, myFun }}>
             {props.children}
         </userContext.Provider>
     )
