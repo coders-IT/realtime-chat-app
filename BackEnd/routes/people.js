@@ -44,5 +44,21 @@ router.post("/getUser", getUserName, async (req, res) => {
 	}
 })
 
+router.get("/alluser", async (req, res) => {
+	try {
+		const db=getDatabase();
+        const userSnap=await get(child(ref(db),`users/`));
+		const userShot=userSnap.val();
+		var users = []
+		for(var id in userShot){
+			users.push(id);
+		}
+		res.send({ "users": users });
+
+	} catch (error) {
+		console.log(error);
+		res.status(400).send({ error: "Something Wrong! Please try again after some time" });
+	}
+})
 
 module.exports = router;
