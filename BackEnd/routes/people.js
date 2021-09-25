@@ -1,65 +1,46 @@
 var express = require('express');
 var router = express.Router();
-const firestore = require("firebase/firestore");
-const database = require("firebase/database");
 const getUserName = require('../middleware/authID');
-const { updateDoc } = require('firebase/firestore');
+const { getDatabase, ref , child ,get, update  } = require("firebase/database");
 
 
-
-router.post("/addPeople", getUserName, async (req, resp) => {
+router.post("/addPeople", getUserName, async (req, res) => {
 
 	try {
-		const db = firestore.getFirestore();
-		const ref = firestore.doc(db, "users", req.username);
-		const userDoc = await firestore.getDoc(ref);
-		const userData = userDoc.data();
+		const db=getDatabase();
+        const userSnap=await get(child(ref(db),`users/${req.username}`));
+		const userData = userSnap.val();
+
 		var arr = userData.chats;
+		if(!arr)	arr=[];
 		if (arr.indexOf(req.body.user) != -1) {
-			resp.send("Chat Exist");
+			res.send("Chat Exists");
 			return;
 		}
 		arr.push(req.body.user);
-		updateDoc(ref, {
-			chats: userData.chats
-		})
 
-		resp.send({ "success" : "chat Added Successfully"})
-	} catch {
-		resp.status(400).send({ error: "Something Wrong! Please try again after some time" });
+		const updates={};
+        updates[`users/${req.username}/chats`]=arr;
+        update(ref(getDatabase()),updates);
+
+		res.send({ "success" : "Chat Added Successfully"})
+	} catch(error) {
+		console.log(error)
+		res.status(400).send({ error: "Something Wrong! Please try again after some time" });
 	}
 })
 
-router.post("/getUser", getUserName, async (req, resp) => {
+router.post("/getUser", getUserName, async (req, res) => {
 
 	try {
-		const db = firestore.getFirestore();
-		const ref = firestore.doc(db, "users", req.body.user);
-		const userDoc = await firestore.getDoc(ref);
-		const userData = userDoc.data();
-		// console.log(userData, req.body.user);
-		resp.status(200).json({ 'profilePicUrl': userData.profilePicUrl, 'name': userData.name, 'lastSeen': userData.lastSeen });
+		const db=getDatabase();
+        const userSnap=await get(child(ref(db),`users/${req.body.user}`));
+		const userData = userSnap.val();
+		res.status(200).json({ 'profilePicUrl': userData.profilePicUrl, 'name': userData.name, 'lastSeen': userData.lastSeen });
 
 	} catch (error) {
 		console.log(error);
-		resp.status(400).send({ error: "Something Wrong! Please try again after some time" });
-	}
-})
-
-router.get("/alluser", async (req, resp) => {
-	try {
-		const db = firestore.getFirestore();
-		const userShot = await firestore.getDocs(firestore.collection(db, "users"));
-		var users = []
-		userShot.forEach((doc) => {
-			users.push(doc.id);
-		})
-
-		resp.send({ "users": users });
-
-	} catch (error) {
-		console.log(error);
-		resp.status(400).send({ error: "Something Wrong! Please try again after some time" });
+		res.status(400).send({ error: "Something Wrong! Please try again after some time" });
 	}
 })
 
