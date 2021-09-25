@@ -8,6 +8,9 @@ const firestore = require("firebase/firestore");
 const getUserName = require('../middleware/authID');
 
 
+const { getDatabase, ref ,set, child ,get, update  } = require("firebase/database");
+
+
 router.post('/createuser', async (req, res) => {
     try {
         const username = req.body.username;
@@ -16,9 +19,8 @@ router.post('/createuser', async (req, res) => {
         const cpassword = req.body.cpassword;
         const phone = req.body.phone;
 
-        const db = getFirestore();
-        const usersRef = doc(db, "users", username);
-        const userSnap = await getDoc(usersRef);
+        const db=getDatabase();
+        const userSnap=await get(child(ref(db),`users/${username}`))
 
         if (userSnap.exists()) {
             res.status(400).json({ 'error': 'Try another username' })
@@ -34,7 +36,8 @@ router.post('/createuser', async (req, res) => {
 
         var dt = new Date();
         const noImage = "https://www.pngkey.com/png/full/204-2049354_ic-account-box-48px-profile-picture-icon-square.png";
-        await setDoc(doc(db, "users", username), {
+
+        set(ref(db,'users/'+username),{
             username: username,
             name: name,
             password: secPass,
@@ -45,7 +48,7 @@ router.post('/createuser', async (req, res) => {
             settings: {},
             chats: [],
             online: true
-        });
+        })
 
         const data = {
             user: { username }
@@ -65,19 +68,18 @@ router.post('/login', async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
 
-        const db = getFirestore();
-        const usersRef = doc(db, "users", username);
-        const userSnap = await getDoc(usersRef);
+        const db=getDatabase();
+        const userSnap=await get(child(ref(db),`users/${username}`))
 
 
-        if (!userSnap.exists() || !bcrypt.compareSync(password, userSnap.data().password)) {
+        if (!userSnap.exists() || !bcrypt.compareSync(password, userSnap.val().password)) {
             res.status(400).json({ 'error': "Please LogIn with valid credentials" });
             return;
         }
 
-        updateDoc(usersRef, {
-            lastSeen: new Date().getTime()
-        });
+        const updates={};
+        updates[`users/${username}/lastSeen`]=new Date().getTime();
+        update(ref(db),updates);
 
         const data = {
             user: { username }
@@ -91,33 +93,28 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post("/getUser", getUserName, async (req, resp) => {
-    const ref = firestore.doc(firestore.getFirestore(), "users", req.username);
-    const userDoc = await firestore.getDoc(ref);
-    const userData = userDoc.data();
-    resp.json(userData);
+router.post("/getUser", getUserName, async (req, res) => {
+    const db=getDatabase();
+    const userSnap=await get(child(ref(db),`users/${req.username}`));
+    res.status(200).json(userSnap.val());
 })
 
-router.post("/getUserWithName", async (req, resp) => {
-    const ref = firestore.doc(firestore.getFirestore(), "users", req.body.username);
-    const userDoc = await firestore.getDoc(ref);
-    if (!userDoc.exists()) {
-        resp.status(404).send({ error: "User Not Avilable" });
+router.post("/getUserWithName", async (req, res) => {
+    const db=getDatabase();
+    const userSnap=await get(child(ref(db),`users/${req.body.username}`));
+    if(!userSnap.exists()){
+        res.status(404).send({ error: "User Not Avilable" });
         return;
-	}
-    const userData = userDoc.data();
-    resp.json(userData);
+    }
+    res.status(200).json(userSnap.val());
 })
 
 
-router.post("/authanticate", getUserName, async (req, resp) => {
+router.post("/authenticate", getUserName, async (req, resp) => {
     try {
 
-        const db = getFirestore();
-        const usersRef = doc(db, "users", req.username);
-        const userSnap = await getDoc(usersRef);
-
-        console.log(userSnap.data());
+        const db=getDatabase();
+        const userSnap=await get(child(ref(db),`users/${req.username}`));
 
         if (!userSnap.exists()) {
             res.status(400).json({ 'error': "Please LogIn with valid credentials" });
