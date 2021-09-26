@@ -29,7 +29,7 @@ export default function ChatListCard(props) {
             body: JSON.stringify({ "username": props.uniqName })
         });
         const parsed = await userData.json();
-
+        console.log(parsed);
         data.setchatWith(parsed);
 	}
     return (

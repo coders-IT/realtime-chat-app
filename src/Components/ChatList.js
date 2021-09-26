@@ -20,9 +20,17 @@ export default function ChatList() {
         setChatUsers(arr);
         /* eslint-disable */
     }, [chats]);
+
+    useEffect(() => {
+        chatUsers.forEach((user) => {
+            myFun(user);
+        });
+    }, [chatUsers])
+
     const setVisible = () => {
         setnewChatBox(true);
     }
+
 
     return (
         <div className="chat-list">

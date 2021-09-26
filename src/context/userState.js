@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import userContext from './userContext';
 
 import { initializeApp } from "firebase/app";
 // import { getMessaging, onMessage, getToken } from "firebase/messaging";
-import { getDatabase, ref, onValue} from "firebase/database";
+import { getDatabase, ref, onValue, onChildAdded} from "firebase/database";
+import Chat from '../Components/Chat';
 
 const UserState = (props) => {
     const [userDetail, setUserDetail] = useState({ username: "Deepak" });    //user data from getUser endpoint
@@ -14,9 +15,15 @@ const UserState = (props) => {
     const [newChatBox, setnewChatBox] = useState(false);
     const [chatUsers, setChatUsers] = useState([]);
     const [allUser, setallUser] = useState([]);
+    const [newMsg, setnewMsg] = useState({});
     //TODO getjwt from local storage
     const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
 
+    useEffect(() => {
+        if (newMsg.sender === chatWith.username) {
+            setmessage(message.concat(newMsg));
+		}
+    }, [newMsg]);
 
     //set online 
     const setOnline = async () => {
@@ -43,7 +50,7 @@ const UserState = (props) => {
         console.log(parsed);
     }
 
-    const myFun=()=>{
+    const myFun = (user) => {
         const firebaseApp = initializeApp({
             apiKey: "AIzaSyCuw7Z7cnh2XpKkkzd8m_nFBL4KZ8GJ2hk",
             authDomain: "bhannasa-realtime-chat-app.firebaseapp.com",
@@ -54,14 +61,27 @@ const UserState = (props) => {
             appId: "1:40408807989:web:b2538339e5d7d2edd3cf7c"
         });
         const db = getDatabase();
-        const chatRef = ref(db, 'chats/');
-        onValue(chatRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log("changed",data);
-            // alert('got');
-            mapChats();
-        });
+        var dbName = "";
+        if (user < userDetail.username) dbName = user + userDetail.username;
+        else dbName = userDetail.username + user;
+
+        const chatRef = ref(db, 'chats/' + dbName);
+        var curChat = [{}];
+        onChildAdded(chatRef, (data) => {
+            var curData = data.val();
+            curChat[0][data.key] = curData;
+            const dt = new Date();
+            curData["time"] = parseInt(dt.getTime());
+            curData["sender"] = user;
+            var mp = chats;
+            mp.set(user, curChat);
+
+
+            setnewMsg(curData);
+            setChats(mp);
+        })
     }
+
 
     const getChatData = async (user) => {
 
@@ -140,7 +160,7 @@ const UserState = (props) => {
     }
 
     return (
-        <userContext.Provider value={{ userDetail, setOffline, setOnline, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun ,chatUsers, setChatUsers, allUser, setallUser,  }}>
+        <userContext.Provider value={{ userDetail, myFun, setOffline, setOnline, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, }}>
             {props.children}
         </userContext.Provider>
     )
