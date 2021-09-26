@@ -5,7 +5,7 @@ import userContext from '../context/userContext';
 export default function Chat() {
     const {myFun,chats}=useContext(userContext)
     useEffect(() => {
-        myFun();
+        /*myFun();*/
         /* eslint-disable */
     }, [chats]);
     return (

@@ -25,6 +25,7 @@ code {
 .chat-list {
   width: 30%;
   border-right: 1px solid black;
+  overflow-y:scroll;
 }
 .list::-webkit-scrollbar{
   display: none;

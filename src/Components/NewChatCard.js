@@ -22,7 +22,7 @@ export default function NewChatCard(props) {
 	}
 
 	return (
-		<div style={divStyle} onClick={start}>
+		<div style={divStyle} onClick={start} key={props.user}>
 			<p>{props.name}</p>
 			<p style={subName}>{props.user}</p>
 		</div>

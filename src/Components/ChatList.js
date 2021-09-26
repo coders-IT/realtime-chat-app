@@ -8,7 +8,7 @@ export default function ChatList() {
 
     useEffect(() => {
         mapChats();
-        myFun();
+        /*myFun();*/
         /* eslint-disable */
     }, []);
     useEffect(() => {
@@ -22,7 +22,8 @@ export default function ChatList() {
     }, [chats]);
     const setVisible = () => {
         setnewChatBox(true);
-	}
+    }
+
     return (
         <div className="chat-list">
             <div className="header header-chat-list chat-list-card header-chat">

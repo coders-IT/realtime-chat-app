@@ -7,7 +7,7 @@ export default function MessageCard(props) {
     var flt,username;
     if (props.message.user1 === data.userDetail.username) {
         flt = "sent";
-        username = data.userDetail.name;
+        username = "You";
         // console.log("orignal name", username);
     } else {
         flt = "recived";

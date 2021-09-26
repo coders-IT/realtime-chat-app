@@ -13,10 +13,11 @@ export default function NewChatBox() {
 		console.log(data.allUser);
 		var arr = [];
 		for (var i in data.allUser.userData) {
-			arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} divNewChat={divNewChat} />);
+			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username)
+				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} divNewChat={divNewChat} key={i}/>);
 		}
 		setnewchatArray(arr);
-	}, [data.allUser]);
+	}, [data.allUser, data.chatUsers]);
 
 
 	const startChat = async (e) => {
@@ -53,7 +54,7 @@ export default function NewChatBox() {
 
 			//hidding new chat box
 			data.setnewChatBox(false);
-			data.setChatUsers(data.chatUsers.concat(parsed.username));
+			data.setChatUsers([parsed.username].concat(data.chatUsers));
 
 			const toSend = {
 				"token": data.jwtTokken,
@@ -84,6 +85,7 @@ export default function NewChatBox() {
 	}
 	const divNewChat = (user) => {
 		document.getElementById("username").value = user;
+		console.log("new chat candidate", user);
 		startChat();
 	}
 
@@ -94,7 +96,7 @@ export default function NewChatBox() {
 			<>
 				<div id="overLay">
 					<div id="chatForm">
-						<input type="text" id="username" />
+						<input type="text" id="username" disabled={newchatArray.length == 0} />
 						<button onClick={startChat} value="Start Chat" id="submit">Start Chat</button>
 						<button onClick={cancel} value="Start Chat" id="submit">Cancel</button>
 					</div>
