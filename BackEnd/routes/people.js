@@ -14,7 +14,7 @@ router.post("/addPeople", getUserName, async (req, res) => {
 		var arr = userData.chats;
 		if(!arr)	arr=[];
 		if (arr.indexOf(req.body.user) != -1) {
-			res.send("Chat Exists");
+			res.send({ error: "Chat Exists" });
 			return;
 		}
 		arr.push(req.body.user);
@@ -54,6 +54,8 @@ router.get("/alluser", async (req, resp) => {
 		res.status(400).send({ error: "Something Wrong! Please try again after some time" });
 	}
 })
+
+
 
 
 module.exports = router;

@@ -6,10 +6,15 @@ import {
 } from "react-router-dom";
 import SignUp from './Components/SignUp';
 import MainArea from './Components/MainArea';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import userContext from './context/userContext';
 
 function App() {
-
+    const data = useContext(userContext)
+    useEffect(() => {
+        window.onunload = data.setOffline;
+        data.setOnline();
+    }, [])
     return (
         <Router>
             <Switch>

@@ -13,11 +13,13 @@ export default function MessageArea() {
             div.scrollTop = div.scrollHeight - div.clientHeight;
         }
     })
+    const btm = `${window.innerHeight*0.98 - Math.max(window.innerHeight * 0.1, 70) - Math.max(60, window.innerHeight * 0.1)}px`;
+
     if (data.chatWith === "") return (<></>)
     else {
         return (
             <>
-                <div id="msgArea">
+                <div id="msgArea" >
                     {
                         data.message.map((elem) => {
                             return <MessageCard key={elem.time} message={elem} />

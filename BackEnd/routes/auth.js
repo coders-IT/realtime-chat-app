@@ -127,4 +127,37 @@ router.post("/authenticate", getUserName, async (req, resp) => {
     }
 })
 
+
+router.post("/offline", getUserName, async (req, res) => {
+
+    try {
+        const db = getDatabase();
+        var updates = {};
+        updates["/users/" + req.username + "/online"] = false;
+        var dt = new Date();
+        updates["/users/" + req.username + "/lastSeen"] = dt.getTime();
+        update(ref(db), updates);
+        res.send({ "status": "updated Successfully" })
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({ error: "Something Wrong! Please try again after some time" });
+    }
+})
+
+
+router.post("/online", getUserName, async (req, res) => {
+
+    try {
+        const db = getDatabase();
+        var updates = {};
+        updates["/users/" + req.username + "/online"] = true;
+        update(ref(db), updates);
+        res.send({ "status": "updated Successfully" })
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({ error: "Something Wrong! Please try again after some time" });
+    }
+})
+
 module.exports = router;

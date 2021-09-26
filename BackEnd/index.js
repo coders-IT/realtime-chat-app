@@ -28,6 +28,7 @@ app.use('/api/chat', require('./routes/sendMsg'));
 app.use('/api/people', require('./routes/people'));
 app.use('/api/settings', require('./routes/settings'));
 
+
 // some more routes can be added
 
 

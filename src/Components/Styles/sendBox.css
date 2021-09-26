@@ -1,5 +1,8 @@
 #sendMsg {
-	width:stretch;
+	width:70vw;
+	position:absolute;
+	bottom :0px;
+	min-height:60px;
 	background-color: grey;
 	height: 10%;
 	border-radius:10px;

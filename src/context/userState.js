@@ -16,7 +16,33 @@ const UserState = (props) => {
     const [allUser, setallUser] = useState([]);
     //TODO getjwt from local storage
     const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
-    
+
+
+    //set online 
+    const setOnline = async () => {
+        const online = await fetch("http://localhost:5000/api/auth/online", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "token": jwtTokken })
+        });
+        const parsed = await online.json();
+        console.log(parsed);
+    }
+    //setoffline
+    const setOffline = async () => {
+        const offline = await fetch("http://localhost:5000/api/auth/offline", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "token": jwtTokken })
+        });
+        const parsed = await offline.json();
+        console.log(parsed);
+    }
+
     const myFun=()=>{
         const firebaseApp = initializeApp({
             apiKey: "AIzaSyCuw7Z7cnh2XpKkkzd8m_nFBL4KZ8GJ2hk",
@@ -114,7 +140,7 @@ const UserState = (props) => {
     }
 
     return (
-        <userContext.Provider value={{ userDetail, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun ,chatUsers, setChatUsers, allUser, setallUser,  }}>
+        <userContext.Provider value={{ userDetail, setOffline, setOnline, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun ,chatUsers, setChatUsers, allUser, setallUser,  }}>
             {props.children}
         </userContext.Provider>
     )
