@@ -13,6 +13,7 @@ const UserState = (props) => {
     const [chatWith, setchatWith] = useState("");
     const [newChatBox, setnewChatBox] = useState(false);
     const [chatUsers, setChatUsers] = useState([]);
+    const [allUser, setallUser] = useState([]);
     //TODO getjwt from local storage
     const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
     
@@ -80,7 +81,9 @@ const UserState = (props) => {
         const parsed = await userData.json();
         setUserDetail(parsed);
 
+        console.log(parsed);
         var chatList = parsed.chats;
+        if (chatList == null) chatList = [];
         var chatMap = new Map();
         let userMap = new Map();
         for (var i of chatList) {
@@ -93,10 +96,25 @@ const UserState = (props) => {
         // console.log(chatMap);
         setUsers(userMap);
         setChats(chatMap);
+        console.log("my all users", users);
+        console.log("my all chats", chats)
+    }
+
+    const getAllUser = async () => {
+        const userData = await fetch("http://localhost:5000/api/people/alluser", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const parsed = await userData.json();
+
+        setallUser(parsed);
+        console.log("alluserdata",parsed);
     }
 
     return (
-        <userContext.Provider value={{ userDetail, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, chatUsers, setChatUsers, myFun }}>
+        <userContext.Provider value={{ userDetail, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun ,chatUsers, setChatUsers, allUser, setallUser,  }}>
             {props.children}
         </userContext.Provider>
     )

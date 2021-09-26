@@ -6,8 +6,10 @@ import {
 } from "react-router-dom";
 import SignUp from './Components/SignUp';
 import MainArea from './Components/MainArea';
+import { useEffect } from 'react';
 
 function App() {
+
     return (
         <Router>
             <Switch>

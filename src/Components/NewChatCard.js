@@ -1,17 +1,30 @@
+import react from 'react'
+
 export default function NewChatCard(props) {
 	const divStyle = {
-		width: "200px",
-		height: "40px",
+		width: "400px",
+		height: "50px",
 		borderRadius: "5px",
-		background: "black",
+		backgroundColor: "#567",
 		color: "white",
-		lineHeight: "40px",
-		textAlign:"center"
+		display: "flex",
+		justifyContent: "space-evenly",
+		textAlign: "center",
+		margin: "20px",
+		cursor: "pointer"
+	}
+	const subName = {
+		color: "gold"
+
+	}
+	const start = () => {
+		props.divNewChat(props.user);
 	}
 
 	return (
-		<div style={divStyle} onClick={ props.divNewChat}>
-			props.user
+		<div style={divStyle} onClick={start}>
+			<p>{props.name}</p>
+			<p style={subName}>{props.user}</p>
 		</div>
 	)
 }

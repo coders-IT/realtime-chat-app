@@ -17,3 +17,9 @@
 	padding:20px;
 	
 }
+
+#chatList{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-evenly;
+}

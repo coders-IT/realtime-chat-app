@@ -5,25 +5,26 @@ import "./Styles/newchatbox.css"
 
 export default function NewChatBox() {
 	const data = useContext(userContext);
-	const [allUser, setallUser] = useState([]);
-
+	const [newchatArray, setnewchatArray] = useState([]);
 	useEffect(() => {
-		const func = async () => {
-			const userData = await fetch("http://localhost:5000/api/people/alluser", {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			const parsed = userData.json();
-			setallUser(parsed);
-		}
-		func();
-		console.log(allUser);
+		data.getAllUser();
 	}, []);
+	useEffect(() => {
+		console.log(data.allUser);
+		var arr = [];
+		for (var i in data.allUser.userData) {
+			arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} divNewChat={divNewChat} />);
+		}
+		setnewchatArray(arr);
+	}, [data.allUser]);
+
 
 	const startChat = async (e) => {
-		e.preventDefault();
+		try {
+			e.preventDefault();
+		} catch {
+			console.log("error");
+		}
 		const username = document.getElementById("username").value;
 
 		const userData = await fetch("http://localhost:5000/api/auth/getUserWithName", {
@@ -34,12 +35,13 @@ export default function NewChatBox() {
 			body: JSON.stringify({ "username": username })
 		});
 		const parsed = await userData.json();
-		console.log(parsed);
+		console.log("new chat parsed data",parsed);
 		if (parsed.error == null) {
 			//adding new chat data to users
 			var newUsers = data.users;
+			console.log("nelrlwekjr before", newUsers, data.users);
 			newUsers.set(parsed.username, parsed);
-			console.log(newUsers);
+			console.log("nelrlwekjr after", newUsers);
 			data.setUsers(newUsers);
 
 			// adding chat data to new chats
@@ -47,8 +49,7 @@ export default function NewChatBox() {
 			newChat.set(parsed.username, []);
 			data.setChats(newChat);
 
-			console.log(data.users);
-			console.log(data.chatUsers);
+			console.log("afldsfjlaksjfsd",data.chatUsers);
 
 			//hidding new chat box
 			data.setnewChatBox(false);
@@ -73,7 +74,7 @@ export default function NewChatBox() {
 		} else {
 			alert(parsed.error);
 		}
-	
+
 
 	}
 	const cancel = (e) => {
@@ -81,9 +82,12 @@ export default function NewChatBox() {
 		data.setnewChatBox(false);
 
 	}
-	const divNewChat = () => {
-		console.log("data");
+	const divNewChat = (user) => {
+		document.getElementById("username").value = user;
+		startChat();
 	}
+
+
 
 	if (data.newChatBox) {
 		return (
@@ -94,19 +98,15 @@ export default function NewChatBox() {
 						<button onClick={startChat} value="Start Chat" id="submit">Start Chat</button>
 						<button onClick={cancel} value="Start Chat" id="submit">Cancel</button>
 					</div>
-				</div>
-				<div>
-					{
-						allUser.map((user) => {
-							return <NewChatCard user={user} divNewChat={divNewChat}/>
-						})
-					}
+					<div id="chatList">
+						{newchatArray}
+					</div>
 				</div>
 			</>
 			//todo some users avilable from the database
 		)
 	} else {
-		return(<></>)
+		return (<></>)
 	}
 
 }
