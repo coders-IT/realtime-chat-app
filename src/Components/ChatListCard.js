@@ -10,6 +10,7 @@ export default function ChatListCard(props) {
     }
     const getUserMessage = async () => {
         // console.log(props.user);
+	data.setreplyMsg(null);
         var arr = [];
         const jsonData = data.chats.get(props.uniqName)[0];
         for (var i in jsonData) {
