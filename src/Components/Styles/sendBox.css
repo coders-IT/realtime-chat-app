@@ -17,6 +17,7 @@
 	display: flex;
 	justify-content: space-evenly;
 	margin:auto;
+	align-content:center;
 }
 
 #message {
@@ -31,11 +32,13 @@
 #send {
 	font-size: 40px;
 	height: 100%;
-	line-height: 100%;
 	margin-left: 10px;
+	margin-top:-7px;
 	vertical-align: middle;
 	display: inline-block;
 	cursor:pointer;
+	background-color:transparent;
+	border:none;
 }
 
 #replyMsg {

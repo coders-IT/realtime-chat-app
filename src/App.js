@@ -12,8 +12,11 @@ import userContext from './context/userContext';
 function App() {
     const data = useContext(userContext)
     useEffect(() => {
-        window.onunload = data.setOffline;
-        data.setOnline();
+        if (data.jwtTokken) {
+            window.onunload = data.setOffline;
+            data.handleUserStateChg();
+            data.setOnline();
+        }
     }, [])
     return (
         <Router>

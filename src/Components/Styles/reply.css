@@ -1,0 +1,21 @@
+#repMsg{
+    width: 67vw;
+    height: 50px;
+    background-color: #60a5fa;
+    padding:5px 15px;
+    box-shadow:1px 1px 10px #1d4fd8e3 inset, -1px -1px 10px #1d4fd8d8 inset;
+    color: white;
+    line-height: 50px;
+}
+
+#cross{
+    width: 3vw;
+    color:white;
+    background-color: deepskyblue;
+    height: 50px;
+    padding:5px 15px;
+    font-size: 30px;
+    line-height: 50px;
+    cursor: pointer;
+    text-align: center;
+}

@@ -33,7 +33,9 @@ export default function Login() {
             data.setjwtTokken(parsed.authToken);
         } else {
             alert(parsed.error);
-		}
+        }
+        data.setOnline();
+        window.onunload = data.setOffline;
 	}
     return (
         <div id="loginForm">

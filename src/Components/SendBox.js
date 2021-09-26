@@ -28,7 +28,8 @@ export default function SendBox() {
     //     console.log(msg);
 	// })
 
-    const sendMessage = async () => {
+    const sendMessage = async (e) => {
+        e.preventDefault();
         const message = document.getElementById("message");
         const dt = new Date();
         const msgData = {
@@ -37,7 +38,7 @@ export default function SendBox() {
             "token": data.jwtTokken,
             "user": data.chatWith.username,
             "type": "text",
-            "reply":null
+            "reply": data.replyMsg
         }
         message.value = "";
         try {
@@ -56,21 +57,17 @@ export default function SendBox() {
             // else tableName = data.userDetail.username + data.chatWith.username;
             // var curChat = data.chats.get(tableName);
             // console.log("curchat", curChat, tableName);
-
+            data.setreplyMsg(null);
         } catch (err) {
             console.log(err);
         }
 	}
     return (
         <div id="sendMsg">
-            {/*<div id="#replyMsg">
-                <span id="replyContent">sfdfdfsd</span>
-                <span id="cancel">&#10006;</span>
-            </div>*/}
-            <div id="whole">
+            <form id="whole">
                 <input type="text" id="message" placeholder="Type A message" />
-                <i className="material-icons" id="send" onClick={sendMessage}>send</i>
-            </div>
+                <input type="submit" id="send" value="&#10148;" onClick={sendMessage}/>
+            </form>
         </div>
     )
 }
