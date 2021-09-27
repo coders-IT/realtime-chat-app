@@ -10,7 +10,7 @@ export default function Reply() {
     if (data.replyMsg) {
         return (
             <div style={{ display: "flex" }}>
-                <span id="repMsg">{data.replyMsg.message}</span><span id="cross" onClick={removeReply}>&#10008;</span>
+                <span id="repMsg">{data.replyMsg}</span><span id="cross" onClick={removeReply}>&#10008;</span>
             </div>
         )
     } else return(<></>)

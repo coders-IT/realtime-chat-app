@@ -19,7 +19,7 @@ export default function MessageCard(props) {
 
     const addReply = () => {
         console.log("set reply")
-        data.setreplyMsg(props.message);
+        data.setreplyMsg(props.message.message);
 	}
 
     if (props.message.reply == null) {
