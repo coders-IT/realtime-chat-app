@@ -27,9 +27,6 @@ code {
   border-right: 1px solid black;
   overflow-y:scroll;
 }
-.list::-webkit-scrollbar{
-  display: none;
-}
 .chat {
   width: 70%;
   height:98vh;
@@ -114,3 +111,15 @@ body{
     align-items:center;
 }
 
+@media only screen and (max-width: 1000px) {
+    .chat-list {
+        width: 100%;
+        border-right: 1px solid black;
+        overflow-y: scroll;
+    }
+
+    .chat {
+        width: 100%;
+        height: 98vh;
+    }
+}  

@@ -55,3 +55,9 @@
 	right: 80px;
 	font-size: 30px;
 }
+
+@media only screen and (max-width: 1000px) {
+	#sendMsg {
+		width: 100vw;
+	}
+}

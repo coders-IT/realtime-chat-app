@@ -20,6 +20,7 @@ const UserState = (props) => {
     const [UserStateChg, setUserStateChg] = useState({});
     //TODO getjwt from local storage
     const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
+    const [chatVisible, setChatVisible] = useState(true);
 
     useEffect(() => {
         if (newMsg.sender === chatWith.username) {
@@ -192,7 +193,7 @@ const UserState = (props) => {
     }
 
     return (
-        <userContext.Provider value={{ userDetail, myFun, setOffline, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg}}>
+        <userContext.Provider value={{ userDetail, myFun, setOffline, chatVisible, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg}}>
             {props.children}
         </userContext.Provider>
     )

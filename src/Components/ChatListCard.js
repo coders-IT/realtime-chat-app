@@ -32,6 +32,7 @@ export default function ChatListCard(props) {
         const parsed = await userData.json();
         console.log(parsed);
         data.setchatWith(parsed);
+        data.setChatVisible(false);
 	}
     return (
         <div className="chat-list-card" onClick={getUserMessage} id={props.uniqName}>
