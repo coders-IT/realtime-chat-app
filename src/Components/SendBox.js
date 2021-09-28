@@ -32,8 +32,12 @@ export default function SendBox() {
         e.preventDefault();
         const message = document.getElementById("message");
         const dt = new Date();
+        var elemData = message.value;
+        console.log(dt.getTime());
+        elemData = elemData.trim();
+        if (elemData == "") return;
         const msgData = {
-            "message": message.value,
+            "message": elemData,
             "time": dt.getTime(),
             "token": data.jwtTokken,
             "user": data.chatWith.username,

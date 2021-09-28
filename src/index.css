@@ -33,6 +33,7 @@ code {
   display: flex;
   flex-direction: column;
   border-radius: 5px;
+  border-bottom-right-radius: 0px;
 }
 .list{
 	overflow:scroll;

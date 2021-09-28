@@ -4,7 +4,7 @@ import userContext from '../context/userContext';
 export default function ChatListCard(props) {
     const data = useContext(userContext);
     const squeeze = (str) => {
-        let maxChar = 70;
+        let maxChar = 30;
         if (str.length <= maxChar) return str;
         return str.substr(0, maxChar - 2) + "...";
     }

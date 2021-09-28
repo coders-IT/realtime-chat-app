@@ -56,10 +56,11 @@ router.post("/sendMessage", getUserName, async (req, res) => {
 			"reply": req.body.reply,
 			"time": dt.getTime(),
 			"type": req.body.type,  // type currently supports - 'text'
+			"read" :false
 		}
 
 		//creating message id
-		var msgID = parseInt(dt.getTime() * 1000 + dt.getMilliseconds())
+		var msgID = parseInt(dt.getTime())
 		//created
 		set(ref(db, `chats/${user}/${msgID}`), msgBody);
 

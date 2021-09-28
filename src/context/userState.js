@@ -102,8 +102,8 @@ const UserState = (props) => {
         onChildAdded(chatRef, (data) => {
             var curData = data.val();
             curChat[0][data.key] = curData;
-            const dt = new Date();
-            curData["time"] = parseInt(dt.getTime());
+            console.log(data.key);
+            curData["time"] = parseInt(data.key);
             curData["sender"] = user;
             var mp = chats;
             mp.set(user, curChat);
