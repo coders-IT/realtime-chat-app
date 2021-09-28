@@ -10,7 +10,7 @@ export default function NewChatBox() {
 		data.getAllUser();
 	}, []);
 	useEffect(() => {
-		console.log(data.allUser);
+		// console.log(data.allUser);
 		var arr = [];
 		for (var i in data.allUser.userData) {
 			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username)
@@ -40,9 +40,9 @@ export default function NewChatBox() {
 		if (parsed.error == null) {
 			//adding new chat data to users
 			var newUsers = data.users;
-			console.log("nelrlwekjr before", newUsers, data.users);
+			// console.log("nelrlwekjr before", newUsers, data.users);
 			newUsers.set(parsed.username, parsed);
-			console.log("nelrlwekjr after", newUsers);
+			// console.log("nelrlwekjr after", newUsers);
 			data.setUsers(newUsers);
 
 			// adding chat data to new chats
@@ -50,7 +50,7 @@ export default function NewChatBox() {
 			newChat.set(parsed.username, []);
 			data.setChats(newChat);
 
-			console.log("afldsfjlaksjfsd",data.chatUsers);
+			// console.log("afldsfjlaksjfsd",data.chatUsers);
 
 			//hidding new chat box
 			data.setnewChatBox(false);

@@ -58,6 +58,21 @@ code {
   flex-basis: 2;
   border-top-left-radius: 5px !important;
   border-right: 5px solid #ff98a0 !important;
+  color: inherit;
+  text-decoration: none;
+}
+.header-chat-list-hover{
+  position:absolute;
+  width: inherit;
+  height: inherit;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.37);
+  border-radius: 3px;
+  visibility: hidden;
+}
+.header-chat-list:hover .header-chat-list-hover{
+  visibility: visible;
 }
 .chat-list-card {
   display: flex;

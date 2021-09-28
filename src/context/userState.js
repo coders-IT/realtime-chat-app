@@ -160,7 +160,7 @@ const UserState = (props) => {
         const parsed = await userData.json();
         setUserDetail(parsed);
 
-        console.log(parsed);
+        // console.log(parsed);
         var chatList = parsed.chats;
         if (chatList == null) chatList = [];
         var chatMap = new Map();
@@ -175,8 +175,8 @@ const UserState = (props) => {
         // console.log(chatMap);
         setUsers(userMap);
         setChats(chatMap);
-        console.log("my all users", users);
-        console.log("my all chats", chats)
+        // console.log("my all users", users);
+        // console.log("my all chats", chats)
     }
 
     const getAllUser = async () => {
@@ -189,7 +189,7 @@ const UserState = (props) => {
         const parsed = await userData.json();
 
         setallUser(parsed);
-        console.log("alluserdata",parsed);
+        // console.log("alluserdata",parsed);
     }
 
     return (

@@ -1,9 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import userContext from '../context/userContext';
 import ChatListCard from './ChatListCard';
+import {
+    Link
+} from "react-router-dom";
 
 export default function ChatList() {
-    const { userDetail, chats, mapChats, users, setnewChatBox, chatUsers, setChatUsers, myFun, chatVisible, allUser} = useContext(userContext);
+    const { userDetail, chats, mapChats, users, setnewChatBox, chatUsers, setChatUsers, myFun, chatVisible, allUser, setOffline, setjwtTokken} = useContext(userContext);
 
 
     useEffect(() => {
@@ -30,16 +33,23 @@ export default function ChatList() {
     const setVisible = () => {
         setnewChatBox(true);
     }
-
+    const logOut=()=>{
+        localStorage.clear();
+        setjwtTokken(localStorage.getItem("jwtTokken"));
+        setOffline();
+    };
     if (window.innerWidth > 1000 || chatVisible == true) {
         return (
             <div className="chat-list">
-                <div className="header header-chat-list chat-list-card">
+                <Link className="header header-chat-list chat-list-card" onClick={logOut} to="/">
                     <img className="profile-pic" src={userDetail.profilePicUrl} alt={userDetail.name} />
                     <div className="chat-user">
                         {userDetail.name}
                     </div>
-                </div>
+                    <div className="header-chat-list-hover">
+                        Click to log out
+                    </div>
+                </Link>
                 <div id="newChat" onClick={setVisible}>
                     Start New Chat
                 </div>
@@ -54,7 +64,6 @@ export default function ChatList() {
                         }
                         userName = users.get(user).name;
                         imgUrl = users.get(user).profilePicUrl;
-                        console.log(allUser.userData[sentBy],'all there');
                         if(sentBy){
                             if(sentBy===userDetail.username)    sentBy="You";
                             else sentBy=allUser.userData[sentBy].name;
