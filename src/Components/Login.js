@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import userContext from '../context/userContext';
-import "./Styles/login.css"
+import "./Styles/login.css";
 import {
     Link
 } from "react-router-dom";
@@ -38,17 +38,24 @@ export default function Login() {
         window.onunload = data.setOffline;
 	}
     return (
-        <div id="loginForm">
-            <form action="" method="post" id="form">
-                <div id="container">
-                    <input type="text" id="username" placeholder="Username" /><br/>
-                    <input type="password" id="password" placeholder="Password" /><br />
-                    <input type="submit" id="submit" value="LogIn" onClick={login} /><br />
-                    <div><Link to="/signUp" id="newAcc">Create An Account</Link></div>
+        <div className="loginContainer">
+            <div className="loginForm">
+                <div className="login-img">
                 </div>
-            </form>
-
-            <a href="https://www.freepik.com/vectors/background" id = "attribute">Background vector created by coolvector - www.freepik.com</a>
+                <div className="form">
+                    <div className="login-text">
+                        Login 
+                    </div>
+                    <form action="" method="post" id="form">
+                        <div id="container">
+                            <input className="input" type="text" id="username" placeholder="Username" /><br/>
+                            <input className="input" type="password" id="password" placeholder="Password" /><br />
+                            <input type="submit" id="submit" value="Continue" onClick={login} /><br />
+                            <div className="newAccDiv"><Link to="/signUp" id="newAcc">or Create an account</Link></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }

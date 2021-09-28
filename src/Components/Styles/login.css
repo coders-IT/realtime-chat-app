@@ -1,98 +1,80 @@
-#attribute{
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+.loginContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #ff2f3f;
+    font-family: 'Lobster';
 }
-
-#loginForm{
-    background-image: url("../Images/5026563.jpg");
-    width:100vw;
+.loginForm{
+    display: flex;
+    width: 70vw;
+    height: 80vh;
+    border-radius: 20px;
+    box-shadow:0 0 10px rgba(0, 0, 0, 0.432);
+}
+.login-img{
+    width: 60%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-image: url(../Images/login-image.jpg);
     background-size: cover;
     background-position: center;
-    height: 100vh;
 }
-a{
-    text-decoration: none;
-    color: black;
+.form{
+    width:40%;
+    padding:100px;
+    box-sizing: border-box;
+    background-color: rgb(230, 111, 121);
+    background-color: #ff4151;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    color: #395b64;
 }
-
-#form{
-    background-color: rgba(0, 0, 0, 0.678);
-    width: 500px;
-    height: 200px;
-    margin: auto;
-    border-radius: 5px;
-    box-shadow: 5px 5px 10px black;
-    position: relative;
-    top: 20%;
-    padding: 10px;
+.login-text{
+    font-size: 60px;
+    margin-bottom: 20px;
 }
-
-#username,#password,#submit{
+.input{
+    border-bottom: 5px solid #395b64;
+    background-color: inherit;
+}
+.input:focus{
+    outline: none;
+}
+input{
     border: none;
-    width: 270px;
-    height: 30px;
-    margin: 5px;
-    justify-self: center;
-    padding-left: 10px;
-    border-radius: 3px;
-    padding-right: 10px;
-    box-shadow: 1px 1px 1px black;
+    width: 100%;
+    font-size: 30px;
+    margin: 5px 0px;
+    padding: 0px;
+    padding-bottom: 5px;
+    color: #2c474e;
 }
-#submit{
-    background-color: dodgerblue;
-    color: white;
-    width: 290px;
-    cursor:pointer;
+input::placeholder{
+    color:#395b6485;
 }
-#container{
-    width: fit-content;
-    height: fit-content;
-    margin: auto;
-    position: relative;
-    top: 30px;
+input[type="submit"]{
+    margin-top: 40px;
+    border-radius: 10px;
+    font-weight: 900;
+    color: #ff2f3f;
+    background-color: #395b64;
 }
-
-#signup{
+input[type="submit"]:hover{
+    cursor: pointer;
+}
+.newAccDiv{
+    margin:20px 0px;
     text-align: center;
-    color: white;
-}
-
-#submit:hover {
-    background-color: #57a8f7;
-}
-
-@media only screen and (max-width: 1000px) {  
-    #username,#password,#submit{
-        border: none;
-        width: 200px;
-        height: 30px;
-        margin: 5px;
-        justify-self: center;
-        padding-left: 10px;
-        border-radius: 3px;
-        padding-right: 10px;
-        box-shadow: 1px 1px 1px black;
-    }
-    #submit{
-        width: 220px;
-    }
-    #form{
-        background-color: rgba(0, 0, 0, 0.678);
-        width: 60vw;
-        height: 170px;
-        border-radius: 5px;
-        box-shadow: 5px 5px 10px black;
-        position: relative;
-        top: 20%;
-        padding:10px 30px;
-    }
 }
 #newAcc{
-    color:white;
-    text-align:center;
-    width:fit-content;
-    margin:auto;
-    display:flex;
-    margin-top:10px;
+    color: #395b64;
+    font-style: normal;
+    font-size: 1.3em;
+    text-decoration: none;
+}
+#newAcc:hover{
+    text-decoration: underline;
 }
