@@ -74,14 +74,24 @@ router.post("/sendMessage", getUserName, async (req, res) => {
         updates[`users/${req.username}/chats`]=chats;
 		
 		
-		const userSnapU2=await get(child(ref(db),`users/${req.body.user}`));
+		const userSnapU2 = await get(child(ref(db), `users/${req.body.user}`));
+
 		const userDataU2 = userSnapU2.val();
 		let chatsU2 = userDataU2.chats;
-		const idxU2 = chatsU2.indexOf(req.username);
-		if (idxU2 >= 0) chatsU2.splice(idxU2, 1);
-		chatsU2.unshift(req.username);
-        updates[`users/${req.body.user}/chats`]=chatsU2;
-	
+
+		if (chatsU2 == null || chatsU2.indexOf(req.username) == -1) {
+			var arr = [];
+			if (chatsU2 == null) arr.push(req.username);
+			else arr = [req.username].concat(chatU2);
+
+			updates[`users/${req.body.user}/chats`] = arr;
+
+		} else {
+			const idxU2 = chatsU2.indexOf(req.username);
+			if (idxU2 >= 0) chatsU2.splice(idxU2, 1);
+			chatsU2.unshift(req.username);
+			updates[`users/${req.body.user}/chats`] = chatsU2;
+		}
 		
 		update(ref(db),updates);
 

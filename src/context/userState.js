@@ -3,7 +3,7 @@ import userContext from './userContext';
 
 import { initializeApp } from "firebase/app";
 // import { getMessaging, onMessage, getToken } from "firebase/messaging";
-import { getDatabase, ref, onValue, onChildAdded, onChildChanged} from "firebase/database";
+import { getDatabase, ref, onValue, onChildAdded, onChildChanged } from "firebase/database";
 import Chat from '../Components/Chat';
 
 const UserState = (props) => {
@@ -23,15 +23,27 @@ const UserState = (props) => {
     const [chatVisible, setChatVisible] = useState(true);
 
     useEffect(() => {
+        console.log("new msg");
+        console.log(newMsg);
         if (newMsg.sender === chatWith.username) {
             setmessage(message.concat(newMsg));
-		}
+        }
     }, [newMsg]);
 
     useEffect(() => {
+
         if (UserStateChg.username && UserStateChg.username === chatWith.username) {
             setchatWith(UserStateChg);
         }
+
+        if (UserStateChg.username && UserStateChg.username === userDetail.username) {
+            if (chatUsers === UserStateChg.chats) {
+                console.log("same");
+            } else {
+                setChatUsers(UserStateChg.chats);
+			}
+		}
+
     }, [UserStateChg])
 
     //set online 
@@ -105,12 +117,8 @@ const UserState = (props) => {
             console.log(data.key);
             curData["time"] = parseInt(data.key);
             curData["sender"] = user;
-            var mp = chats;
-            mp.set(user, curChat);
-
-
             setnewMsg(curData);
-            setChats(mp);
+
         })
     }
 
@@ -193,7 +201,7 @@ const UserState = (props) => {
     }
 
     return (
-        <userContext.Provider value={{ userDetail, myFun, setOffline, chatVisible, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg}}>
+        <userContext.Provider value={{ userDetail, myFun, setOffline, chatVisible, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg }}>
             {props.children}
         </userContext.Provider>
     )

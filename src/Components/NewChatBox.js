@@ -14,7 +14,7 @@ export default function NewChatBox() {
 		var arr = [];
 		for (var i in data.allUser.userData) {
 			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username)
-				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} divNewChat={divNewChat} key={i}/>);
+				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} divNewChat={divNewChat} key={i} />);
 		}
 		setnewchatArray(arr);
 	}, [data.allUser, data.chatUsers]);
@@ -36,7 +36,7 @@ export default function NewChatBox() {
 			body: JSON.stringify({ "username": username })
 		});
 		const parsed = await userData.json();
-		console.log("new chat parsed data",parsed);
+		console.log("new chat parsed data", parsed);
 		if (parsed.error == null) {
 			//adding new chat data to users
 			var newUsers = data.users;
