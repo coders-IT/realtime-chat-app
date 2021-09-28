@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import userContext from '../context/userContext'
-import "./Styles/reply.css"
+// import "./Styles/reply.css"
 
 export default function Reply() {
     const data = useContext(userContext);
@@ -9,8 +9,8 @@ export default function Reply() {
 	}
     if (data.replyMsg) {
         return (
-            <div style={{ display: "flex" }}>
-                <span id="repMsg">{data.replyMsg}</span><span id="cross" onClick={removeReply}>&#10008;</span>
+            <div id="repMsgCont" style={{ display: "flex" }}>
+                <span id="repMsg">{data.replyMsg.user}: {data.replyMsg.message}</span><span id="cross" onClick={removeReply}>&#10006;</span>
             </div>
         )
     } else return(<></>)

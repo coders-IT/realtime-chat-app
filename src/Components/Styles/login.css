@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    background-color: #ff2f3f;
+    background-color: var(--theme-red);
     font-family: 'Lobster';
 }
 .loginForm{
@@ -26,18 +26,17 @@
     width:40%;
     padding:100px;
     box-sizing: border-box;
-    background-color: rgb(230, 111, 121);
     background-color: #ff4151;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    color: #395b64;
+    color: var(--theme-blue);
 }
 .login-text{
     font-size: 60px;
     margin-bottom: 20px;
 }
 .input{
-    border-bottom: 5px solid #395b64;
+    border-bottom: 5px solid var(--theme-blue);
     background-color: inherit;
 }
 .input:focus{
@@ -53,14 +52,14 @@ input{
     color: #2c474e;
 }
 input::placeholder{
-    color:#395b6485;
+    color:var(--theme-blue);
 }
 input[type="submit"]{
     margin-top: 40px;
     border-radius: 10px;
     font-weight: 900;
-    color: #ff2f3f;
-    background-color: #395b64;
+    color: var(--theme-red);
+    background-color: var(--theme-blue);
 }
 input[type="submit"]:hover{
     cursor: pointer;
@@ -70,7 +69,7 @@ input[type="submit"]:hover{
     text-align: center;
 }
 #newAcc{
-    color: #395b64;
+    color: var(--theme-blue);
     font-style: normal;
     font-size: 1.3em;
     text-decoration: none;

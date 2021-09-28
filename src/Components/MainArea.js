@@ -9,10 +9,12 @@ export default function MainArea() {
 	const data = useContext(userContext);
 	if (data.jwtTokken) {
 		return (
-			<div className="main">
-				<ChatList />
-				<Chat />
-				<NewChatBox/>
+			<div className="main-container">
+				<div className="main">
+					<ChatList />
+					<Chat />
+					<NewChatBox/>
+				</div>
 			</div>
 			
 		)

@@ -3,7 +3,7 @@ import userContext from '../context/userContext';
 import MessageCard from './MessageCard';
 import Reply from './Reply';
 import SendBox from './SendBox';
-import "./Styles/MessageArea.css"
+// import "./Styles/MessageArea.css"
 
 export default function MessageArea() {
     const data = useContext(userContext)
@@ -26,8 +26,8 @@ export default function MessageArea() {
                             return <MessageCard key={elem.time} message={elem} />
                         })
                     }
-                    <Reply/>
                 </div>
+                <Reply/>
                 <SendBox />
             </>
         )

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import userContext from '../context/userContext';
-import "./Styles/sendBox.css"
+// import "./Styles/sendBox.css"
 // const fireBaseApp = require('firebase/app');
 // const database = require("firebase/database");
 
@@ -65,7 +65,7 @@ export default function SendBox() {
     return (
         <div id="sendMsg">
             <form id="whole">
-                <input type="text" id="message" placeholder="Type A message" />
+                <input type="text" id="message" placeholder="Type a message" />
                 <input type="submit" id="send" value="&#10148;" onClick={sendMessage}/>
             </form>
         </div>

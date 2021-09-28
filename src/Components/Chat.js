@@ -1,6 +1,7 @@
 import React, { useContext ,useEffect} from 'react'
 import MessageArea from './MessageArea'
 import userContext from '../context/userContext';
+import './Styles/Chat.css';
 
 export default function Chat() {
     const { myFun, chats, chatWith, chatVisible}=useContext(userContext)
@@ -16,7 +17,7 @@ export default function Chat() {
     if (window.innerWidth > 1000 || chatVisible == false) {
         return (
             <div className="chat">
-                <div className="header" id="header">
+                <div className="header header-chat" id="header">
                     <img className="profile-pic" src={chatWith.profilePicUrl} alt={chatWith.name} id="header-img" />
                     <span style={{ marginLeft: "20px", color: "white", fontSize: "20px" }}>
                         <span style={{ fontWeight: "bolder" }}>{chatWith.name}</span><br /><span style={{ fontSize: "16px" }}>{chatWith.online ? "Online" : getTime(chatWith.lastSeen)}</span>

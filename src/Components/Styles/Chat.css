@@ -1,0 +1,173 @@
+.chat {
+    width: 70%;
+    background-color: #638e9b;
+    display: flex;
+    flex-direction: column;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#msgArea {
+    padding: 6px;
+    width: stretch;
+    overflow-y: scroll;
+    margin-bottom: auto;
+}
+#reply{
+    background-color: #0000;
+    padding:5px 15px;
+    border-radius: 5px;
+    box-shadow:1px 1px 10px white inset, -1px -1px 10px white inset;
+    min-height: 30px;
+    line-height: 30px;
+}
+#content{
+    background-color: #0000002f;
+    font-family: 'Merriweather', serif;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+}
+#desc{
+    padding:5px 10px;
+    line-height: 30px;
+    min-height: 30px;
+    word-break: break-all;
+}
+#details{
+    text-align: end;
+    padding: 10px;
+}
+#main{
+    min-width: 11%;
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 5px;
+    height:fit-content;
+    margin: 5px;
+}
+.about{
+    display: flex;
+    justify-content: space-between;
+}
+#sender{
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.received{
+    width:100%;
+    display:flex;
+    justify-content:left;
+}
+.sent{
+    width:100%;
+    display:flex;
+    justify-content:right;
+}
+.received #main{
+    background-color: var(--theme-blue);
+}
+.sent #main{
+    background-color: var(--theme-red);
+}
+
+.time{
+    color:white;
+    text-align:end;
+    padding-right:5px;
+    padding-top:3px;
+}
+#repMsgCont{
+    background-color: rgba(0, 0, 0, 0.226);
+    box-shadow:1px 1px 10px white inset, -1px -1px 10px white inset;
+    color: white;
+}
+#repMsg{
+    width: 67vw;
+    height: 50px;
+    padding:5px 15px;
+    line-height: 50px;
+    margin-top: auto;
+}
+
+#cross{
+    width: 3vw;
+    /* background-color: red; */
+    height: 50px;
+    padding:5px 15px;
+    font-size: 30px;
+    line-height: 50px;
+    cursor: pointer;
+    text-align: center;
+}
+#sendMsg {
+	min-height:60px;
+	border-radius: 5px;
+}
+
+#whole {
+	background-color: white;
+	height:stretch;
+	border-bottom-right-radius: 5px;
+	display: flex;
+	justify-content: space-evenly;
+	margin:auto;
+	align-content:center;
+}
+
+#message {
+	width: 90%;
+	border:none;
+	border-radius: 5px;
+	display: inline-block;
+	padding-left:10px;
+    box-sizing: border-box;
+    margin: 0;
+    font-size: 20px;
+    outline: none;
+}
+
+#send {
+    width: 10%;
+	font-size: 40px;
+	height: 100%;
+    margin:0;
+	margin-left: 10px;
+	vertical-align: middle;
+	display: inline-block;
+	cursor:pointer;
+	border:none;
+    color: var(--theme-blue);
+    border-radius: 5px;
+    border-radius: 0;
+    border-bottom-right-radius: 5px;
+	background-color:var(--theme-red);
+}
+
+#replyMsg {
+	width: 96%;
+	padding: 10px;
+	padding-left: 40px;
+	height: 40px;
+	line-height: 40px;
+	background-color: azure;
+}
+
+#cancel {
+	position: absolute;
+	right: 80px;
+	font-size: 30px;
+}
+
+@media only screen and (max-width: 1000px) {
+	#sendMsg {
+		width: 100vw;
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+    #main {
+        min-width:25%;
+    }
+}  

@@ -18,9 +18,8 @@ export default function ChatListCard(props) {
             // console.log(jsonData[i], i);
         }
         data.setmessage(arr);
-        document.getElementById(props.uniqName).style.backgroundColor = "#d8d8d8";
-
-        if (data.chatWith!=="") document.getElementById(data.chatWith.username).style.backgroundColor = "#999";
+        if (data.chatWith!=="") document.getElementById(data.chatWith.username).style.backgroundColor = "transparent";
+        document.getElementById(props.uniqName).style.backgroundColor = "var(--theme-red)";
 
         const userData = await fetch("http://localhost:5000/api/auth/getUserWithName", {
             method: 'POST',
@@ -42,7 +41,7 @@ export default function ChatListCard(props) {
                     {props.user}
                 </div>
                 <div className="chat-last-message">
-                    {squeeze(props.message)}
+                    {props.sentBy}{squeeze(props.message)}
                 </div>
             </div>
         </div>
