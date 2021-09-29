@@ -17,10 +17,20 @@ router.post("/addPeople", getUserName, async (req, res) => {
 			res.send({ error: "Chat Exists" });
 			return;
 		}
-		arr.push(req.body.user);
+		arr = [req.body.user].concat(arr);
 
-		const updates={};
-        updates[`users/${req.username}/chats`]=arr;
+		const userSnap2 = await get(child(ref(db), `users/${req.body.user}`));
+		const userData2 = userSnap2.val();
+		var user2Chat = userData2.chats;
+		if (user2Chat) user2Chat = [req.username].concat(user2Chat);
+		else user2Chat = [req.username];
+
+		const updates = {};
+
+		updates[`users/${req.body.user}/chats`] = user2Chat;
+		updates[`users/${req.username}/chats`] = arr;
+
+		console.log(updates, req.body.user, req.username);
         update(ref(getDatabase()),updates);
 
 		res.send({ "success" : "Chat Added Successfully"})

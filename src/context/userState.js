@@ -36,13 +36,27 @@ const UserState = (props) => {
             setchatWith(UserStateChg);
         }
 
-        if (UserStateChg.username && UserStateChg.username === userDetail.username) {
-            if (chatUsers === UserStateChg.chats) {
-                console.log("same");
-            } else {
-                setChatUsers(UserStateChg.chats);
-			}
-		}
+        const func = async () => {
+            if (UserStateChg.username && UserStateChg.username === userDetail.username) {
+                if (chatUsers === UserStateChg.chats) {
+                } else {
+
+                    if (UserStateChg.chats.length != chatUsers.length) {
+                        var newUser = UserStateChg.chats[0];
+
+                        var mp = users;
+                        var newUserData = await getUserData(newUser);
+                        mp.set(newUser, newUserData);
+                        setUsers(mp);
+
+                        myFun(newUser);
+                    }
+
+                    setChatUsers(UserStateChg.chats);
+                }
+            }
+        }
+        func();
 
     }, [UserStateChg])
 
@@ -93,7 +107,6 @@ const UserState = (props) => {
     }
 
     //updating user online status automatically
-
     const myFun = (user) => {
         const firebaseApp = initializeApp({
             apiKey: "AIzaSyCuw7Z7cnh2XpKkkzd8m_nFBL4KZ8GJ2hk",
@@ -108,20 +121,25 @@ const UserState = (props) => {
         var dbName = "";
         if (user < userDetail.username) dbName = user + userDetail.username;
         else dbName = userDetail.username + user;
-
+        console.log(user, "called the chager");
         const chatRef = ref(db, 'chats/' + dbName);
+        console.log('chats/' + dbName, userDetail);
         var curChat = [{}];
         onChildAdded(chatRef, (data) => {
             var curData = data.val();
             curChat[0][data.key] = curData;
-            console.log(data.key);
-            curData["time"] = parseInt(data.key);
+            const dt = new Date();
+            curData["time"] = parseInt(dt.getTime());
             curData["sender"] = user;
-            setnewMsg(curData);
+            var mp = chats;
+            mp.set(user, curChat);
 
+            /*console.log(curData);*/
+
+            setnewMsg(curData);
+            setChats(mp);
         })
     }
-
 
 
     const getChatData = async (user) => {
@@ -180,7 +198,7 @@ const UserState = (props) => {
             userMap.set(i, userAbout);
             // console.info("info:", i, userAbout);
         }
-        // console.log(chatMap);
+        console.log(chatMap, userMap);
         setUsers(userMap);
         setChats(chatMap);
         // console.log("my all users", users);

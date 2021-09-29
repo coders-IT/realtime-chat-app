@@ -70,6 +70,7 @@ export default function NewChatBox() {
 			});
 
 			const chatData = await newChatData.json();
+			data.myFun(username);
 			console.log(chatData);
 
 		} else {

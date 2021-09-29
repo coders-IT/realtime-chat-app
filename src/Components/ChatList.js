@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 export default function ChatList() {
-    const { userDetail, chats, mapChats, users, setnewChatBox, chatUsers, setChatUsers, myFun, chatVisible, allUser, setOffline, setjwtTokken} = useContext(userContext);
+    const { userDetail, chats, mapChats, users, setnewChatBox, jwtTokken, chatUsers, setChatUsers, myFun, chatVisible, allUser, setOffline, setjwtTokken} = useContext(userContext);
 
 
     useEffect(() => {
@@ -25,10 +25,27 @@ export default function ChatList() {
     }, [chats]);
 
     useEffect(() => {
-        chatUsers.forEach((user) => {
-            myFun(user);
-        });
-    }, [chatUsers])
+        const callFunc = async () => {
+
+            const userData = await fetch("http://localhost:5000/api/auth/getUser", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "token": jwtTokken })
+            });
+            const parsed = await userData.json();
+            console.log("callfunc", parsed);
+            var arr = parsed["chats"];
+            if (arr) {
+                arr.forEach((user) => {
+                    myFun(user);
+                });
+            }
+
+        }
+        callFunc();
+    }, [userDetail])
 
     const setVisible = () => {
         setnewChatBox(true);

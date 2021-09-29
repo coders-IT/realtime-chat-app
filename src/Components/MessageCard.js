@@ -14,7 +14,11 @@ export default function MessageCard(props) {
         username = data.chatWith.name;
     }
     const dt = new Date(props.message.time);
-
+    const squeeze = (str) => {
+        let maxChar = 45;
+        if (str.length <= maxChar) return str;
+        return str.substr(0, maxChar - 2) + "...";
+    }
     /*replyMsg, setreplyMsg*/
 
     const addReply = () => {
@@ -39,7 +43,7 @@ export default function MessageCard(props) {
                     </div>
                 </div>
                 <div id="content">
-                    {props.message.reply && <div id="reply">{reply}</div>}
+                    {props.message.reply && <div id="reply">{squeeze(reply)}</div>}
                     <div id="desc">{props.message.message}</div>
                 </div>
             </div>
