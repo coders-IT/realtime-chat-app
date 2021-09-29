@@ -187,6 +187,7 @@
 	#send{
         width:15%;
         color:#ff98a0;
+        border-top-right-radius: 5px;
     }
     .header-chat{
         border: 0 !important;
