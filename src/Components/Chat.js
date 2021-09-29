@@ -10,19 +10,28 @@ export default function Chat() {
         /* eslint-disable */
     }, [chats]);
     const getTime = (timestamp) => {
-        var dt = new Date(timestamp);
-        if (chatWith !== "") return `${dt.getHours() % 12 < 10 ? "0" : ""}${dt.getHours() % 12}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()} ${dt.getHours() >= 12 ? "PM" : "AM"}`
-        else return "";
+        if(chatWith === "") return "";
+        const dt = new Date(timestamp);
+        const curDt=new Date();
+        let hours=dt.getHours();
+        hours%=12;
+        if(!hours)  hours=12;
+
+        let lastSeen="Last seen at " + hours +":"+ dt.getMinutes() + (dt.getHours()>=12?" PM ":" AM ");
+        if(dt.getDate() !== curDt.getDate() || dt.getMonth() !== curDt.getMonth() && dt.getFullYear() !== curDt.getFullYear()){
+            lastSeen+= dt.getDate() +"/"+ dt.getMonth() +"/"+ (dt.getFullYear()%100); 
+        }
+        return lastSeen;
     }
-    if (window.innerWidth > 1000 || chatVisible == false) {
+    if (window.innerWidth > 1000 || chatVisible === false) {
         return (
             <div className="chat">
-                <div className="header header-chat" id="header">
+                {chatWith&&(<div className="header header-chat" id="header">
                     <img className="profile-pic" src={chatWith.profilePicUrl} alt={chatWith.name} id="header-img" />
                     <span style={{ marginLeft: "20px", color: "white", fontSize: "20px" }}>
                         <span style={{ fontWeight: "bolder" }}>{chatWith.name}</span><br /><span style={{ fontSize: "16px" }}>{chatWith.online ? "Online" : getTime(chatWith.lastSeen)}</span>
                     </span>
-                </div>
+                </div>)}
                 <MessageArea />
             </div>
         )

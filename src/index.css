@@ -58,7 +58,6 @@ code {
   flex-direction: column !important;
   flex-basis: 2;
   border-top-left-radius: 5px !important;
-  border-right: 5px solid #ff98a0 !important;
   color: inherit;
   text-decoration: none;
 }
@@ -94,12 +93,14 @@ code {
 }
 .chat-preview > div {
   margin: 5px;
+  color:white;
 }
 .header-chat{
+  border-left: 5px solid #ff98a0 !important;
 	border-top-right-radius: 5px !important;
 }
 .chat-user {
-    font-weight: 900;
+    font-weight: 600;
     font-size: 1.1rem;
 }
 .chat-last-message {
