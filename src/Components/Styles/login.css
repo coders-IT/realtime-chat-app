@@ -21,15 +21,20 @@
     background-image: url(../Images/login-image.jpg);
     background-size: cover;
     background-position: center;
+    display: flex;
 }
+
 .form{
     width:40%;
     padding:100px;
+    padding: 5vw;
     box-sizing: border-box;
     background-color: #ff4151;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     color: var(--theme-blue);
+    display: flex;
+    flex-direction: column;
 }
 .login-text{
     font-size: 60px;
@@ -76,4 +81,79 @@ input[type="submit"]:hover{
 }
 #newAcc:hover{
     text-decoration: underline;
+}
+.photo-credits{
+    text-align: center;
+    font-size: 0.7em;
+    /* margin-top: auto; */
+    /* Uncomment above to take Image credits down */
+}
+.photo-credits>a{
+    color:inherit;
+    text-decoration: none;
+}
+
+/* Small Computer/Big Tablet screens */
+@media (max-width:1400px) {
+    .login-text{
+        font-size: 40px;
+    }
+    .form{
+        padding: 45px;
+        padding-top: 30px;
+    }
+    .input{
+        border-width: 2px;
+    }
+    input{
+        font-size: 15px;
+    }   
+}
+@media (max-width:850px) {
+    .login-text{
+        font-size: 35px;
+    }
+    .form{
+        padding: 20px;
+    }
+    .input{
+        border-width: 2px;
+    }
+    input{
+        font-size: 13px;
+    }   
+    #newAcc{
+        font-size: 1.1em;
+    }
+}
+
+/* Mobile/Tablet screen */
+@media (max-width:600px) {
+    .loginForm{
+        flex-direction: column;
+    }
+    .login-img{
+        height: 100%;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 20px;
+    }
+    .loginForm>div{
+        width: 100%;
+    }
+    .form{
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 20px;
+    }
+    input[type="submit"]{
+        margin-top: 10px;
+    }
+    .login-text {
+        margin-bottom: 10px;
+    }
+    .newAccDiv{
+        margin:7px 0px;
+    }
+    .photo-credits{
+        font-size: 0.5em;
+    }
 }

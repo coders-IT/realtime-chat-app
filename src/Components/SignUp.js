@@ -12,7 +12,8 @@ export default function SignUp() {
         const name = document.getElementById("name").value;
         const password = document.getElementById("password").value;
         const cpassword = document.getElementById("cpassword").value;
-        const phoneNo = document.getElementById("phoneNo").value;
+        // const phoneNo = document.getElementById("phoneNo").value;
+        const phoneNo = '0000000000';
         // const submit = document.getElementById("submit");
 
         const formData = {
@@ -55,11 +56,14 @@ export default function SignUp() {
                             <input className="input" type="text" id="username" placeholder="Username" /><br/>
                             <input className="input" type="password" id="password" placeholder="Password"/><br/>
                             <input className="input" type="password" id="cpassword" placeholder="Confirm Password" /><br />
-                            <input className="input" type="text" id="phoneNo" placeholder="Phone Number" /><br />
+                            {/* <input className="input" type="text" id="phoneNo" placeholder="Phone Number" /><br /> */}
                             <input type="submit" id="submit" onClick={signup} value="Continue" />
                             <div className="newAccDiv"><Link to="/" id="newAcc">Already have an account?</Link></div>
                         </div>
                     </form>
+                    <div className="photo-credits">
+                        <a href='https://www.freepik.com/vectors/box' target="_blank">Image credits</a>
+                    </div>
                 </div>
             </div>
         </div>

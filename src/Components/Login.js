@@ -54,6 +54,9 @@ export default function Login() {
                             <div className="newAccDiv"><Link to="/signUp" id="newAcc">or Create an account</Link></div>
                         </div>
                     </form>
+                    <div className="photo-credits">
+                        <a href='https://www.freepik.com/vectors/box' target="_blank">Image credits</a>
+                    </div>
                 </div>
             </div>
         </div>
