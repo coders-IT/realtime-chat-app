@@ -12,6 +12,10 @@
     overflow-y: scroll;
     margin-bottom: auto;
 }
+#msgArea::-webkit-scrollbar { width: 5px; }
+#msgArea::-webkit-scrollbar-track { background-color:transparent; }
+#msgArea::-webkit-scrollbar-thumb { background: var(--theme-blue); }
+#msgArea::-webkit-scrollbar-corner { background: transparent; }
 #reply{
     background-color: #0000;
     padding:5px 15px;
@@ -36,6 +40,10 @@
 #details{
     text-align: end;
     padding: 10px;
+}
+.header-chat{
+    border-left: 5px solid #ff98a0 !important;
+    border-top-right-radius: 5px !important;
 }
 #main{
     min-width: 11%;
@@ -161,15 +169,26 @@
 	right: 80px;
 	font-size: 30px;
 }
-
-@media only screen and (max-width: 1000px) {
-	#sendMsg {
-		width: 100vw;
-	}
+.fas{
+    font-size: 3em;
+    margin-left: 5px;
+    color: var(--theme-blue);
+    text-align: center;
+    color: #ff98a0;
+    background-color: var(--theme-red);
 }
 
-@media only screen and (max-width: 1000px) {
-    #main {
-        min-width:25%;
+
+@media (max-width:600px) {
+	.chat{
+		width:100%;
+        border-radius: 5px !important;
+	}
+	#send{
+        width:15%;
+        color:#ff98a0;
     }
-}  
+    .header-chat{
+        border: 0 !important;
+    }
+}

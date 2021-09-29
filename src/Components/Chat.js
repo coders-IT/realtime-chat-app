@@ -4,7 +4,7 @@ import userContext from '../context/userContext';
 import './Styles/Chat.css';
 
 export default function Chat() {
-    const { myFun, chats, chatWith, chatVisible}=useContext(userContext)
+    const { myFun, chats, chatWith, chatVisible, setChatVisible}=useContext(userContext)
     useEffect(() => {
         /*myFun();*/
         /* eslint-disable */
@@ -23,10 +23,11 @@ export default function Chat() {
         }
         return lastSeen;
     }
-    if (window.innerWidth > 1000 || chatVisible === false) {
+    if ( innerWidth > 600 || chatVisible === true) {
         return (
             <div className="chat">
                 {chatWith&&(<div className="header header-chat" id="header">
+                    {innerWidth<=600 && (<div className="fas" onClick={()=>{setChatVisible(false)}}>&#xf104;</div>)}
                     <img className="profile-pic" src={chatWith.profilePicUrl} alt={chatWith.name} id="header-img" />
                     <span style={{ marginLeft: "20px", color: "white", fontSize: "20px" }}>
                         <span style={{ fontWeight: "bolder" }}>{chatWith.name}</span><br /><span style={{ fontSize: "16px" }}>{chatWith.online ? "Online" : getTime(chatWith.lastSeen)}</span>

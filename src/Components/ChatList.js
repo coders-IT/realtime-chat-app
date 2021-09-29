@@ -55,7 +55,7 @@ export default function ChatList() {
         setjwtTokken(localStorage.getItem("jwtTokken"));
         setOffline();
     };
-    if (window.innerWidth > 1000 || chatVisible == true) {
+    if ( innerWidth > 600 || chatVisible === false) {
         return (
             <div className="chat-list">
                 <Link className="header header-chat-list chat-list-card" onClick={logOut} to="/">

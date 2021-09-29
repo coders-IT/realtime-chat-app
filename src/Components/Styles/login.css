@@ -93,6 +93,26 @@ input[type="submit"]:hover{
     text-decoration: none;
 }
 
+/* Medium sized desktop screens */
+@media (max-width:1600px) {
+    .login-text {
+        font-size: 40px;
+    }
+
+    .form {
+        padding: 45px;
+        padding-top: 50px;
+    }
+
+    .input {
+        border-width: 2px;
+    }
+
+    input {
+        font-size: 20px;
+    }
+}
+
 /* Small Computer/Big Tablet screens */
 @media (max-width:1400px) {
     .login-text{

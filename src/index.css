@@ -7,11 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
 .main-container{
   display: flex;
   align-items: center;
@@ -66,10 +61,11 @@ code {
   width: inherit;
   height: inherit;
   color: white;
-  font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.37);
-  border-radius: 3px;
+  font-size: 25px;
+  background-color: var(--theme-blue);
+  border-radius: 10px;
   visibility: hidden;
+  padding: 10px;
 }
 .header-chat-list:hover .header-chat-list-hover{
   visibility: visible;
@@ -94,10 +90,6 @@ code {
 .chat-preview > div {
   margin: 5px;
   color:white;
-}
-.header-chat{
-  border-left: 5px solid #ff98a0 !important;
-	border-top-right-radius: 5px !important;
 }
 .chat-user {
     font-weight: 600;
@@ -139,4 +131,18 @@ body{
 #header{
     display:flex;
     align-items:center;
+}
+
+@media (max-width:900px) and (min-width:601px) {
+	.chat-list{
+		width:40%;
+	}
+}
+@media (max-width:600px) {
+	.chat-list{
+		width:100%;
+	}
+	.list{
+		margin-left: 5px;
+	}
 }

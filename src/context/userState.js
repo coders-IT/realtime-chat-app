@@ -20,7 +20,7 @@ const UserState = (props) => {
     const [UserStateChg, setUserStateChg] = useState({});
     //TODO getjwt from local storage
     const [jwtTokken, setjwtTokken] = useState(localStorage.getItem("jwtTokken"))
-    const [chatVisible, setChatVisible] = useState(true);
+    const [chatVisible, setChatVisible] = useState(false);
 
     useEffect(() => {
         console.log("new msg");
