@@ -78,12 +78,12 @@ router.post("/sendMessage", getUserName, async (req, res) => {
 
 		const userDataU2 = userSnapU2.val();
 		let chatsU2 = userDataU2.chats;
-		console.log(chatU2, `users/${req.body.user}`)
+		console.log(chatsU2, `users/${req.body.user}`)
 		if (chatsU2 == null || chatsU2.indexOf(req.username) == -1) {
 			console.log(`users/${req.body.user}/chats`);
 			var arr = [];
 			if (chatsU2 == null) arr.push(req.username);
-			else arr = [req.username].concat(chatU2);
+			else arr = [req.username].concat(chatsU2);
 
 			updates[`users/${req.body.user}/chats`] = arr;
 
