@@ -38,12 +38,16 @@ export default function NewChatBox() {
 		const parsed = await userData.json();
 		console.log("new chat parsed data", parsed);
 		if (parsed.error == null) {
+
 			//adding new chat data to users
 			var newUsers = data.users;
-			// console.log("nelrlwekjr before", newUsers, data.users);
 			newUsers.set(parsed.username, parsed);
-			// console.log("nelrlwekjr after", newUsers);
 			data.setUsers(newUsers);
+
+			//adding to unread
+			newUsers = data.unread;
+			newUsers.set(parsed.username, 0);
+			data.setUnread(newUsers);
 
 			// adding chat data to new chats
 			var newChat = data.chats;

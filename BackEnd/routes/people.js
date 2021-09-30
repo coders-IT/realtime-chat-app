@@ -22,7 +22,7 @@ router.post("/addPeople", getUserName, async (req, res) => {
 		const userSnap2 = await get(child(ref(db), `users/${req.body.user}`));
 		const userData2 = userSnap2.val();
 		var user2Chat = userData2.chats;
-		if (user2Chat) user2Chat = [req.username].concat(user2Chat);
+		if (user2Chat && user2Chat.indexOf(req.username) == -1) user2Chat = [req.username].concat(user2Chat);
 		else user2Chat = [req.username];
 
 		const updates = {};

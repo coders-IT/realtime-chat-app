@@ -104,4 +104,25 @@ router.post("/sendMessage", getUserName, async (req, res) => {
 
 })
 
+router.post("/updateMsg", async (req, res) => {
+
+	try {
+		const db = getDatabase();
+		var user1 = req.body.user1;
+		var user2 = req.body.user2;
+
+		if (user1 < user2) user1 += user2;
+		else user1 = user2 + user1;
+		console.log(req.body.updates, user1);
+		update(ref(db, `chats/${user1}`), req.body.updates);
+
+		res.send({ status: "updated successfully" });
+
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ error: "Something Wrong! Please try again after some time" });
+	}
+})
+
+
 module.exports = router;

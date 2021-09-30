@@ -12,11 +12,22 @@ export default function ChatListCard(props) {
         // console.log(props.user);
 	    data.setreplyMsg(null);
         var arr = [];
+        var updates = {};
         const jsonData = data.chats.get(props.uniqName)[0];
         for (var i in jsonData) {
             arr.push(jsonData[i]);
-            // console.log(jsonData[i], i);
+            if (jsonData[i]["read"] == false) updates[`${i}/read`] = true;
+                // console.log(jsonData[i], i);
+                console.log(jsonData[i]["read"], "sdffadsfjadsklfsdjklfdsj");
         }
+        console.log(data.userDetail.username, props.uniqName, updates);
+        data.updateMsg(data.userDetail.username, props.uniqName, updates);
+        
+        var mp = data.unread;
+        mp.set(props.uniqName, 0);
+        data.setUnread(mp);
+        console.log(mp);
+
         data.setmessage(arr);
         if (data.chatWith!=="") document.getElementById(data.chatWith.username).style.backgroundColor = "transparent";
         document.getElementById(props.uniqName).style.backgroundColor = "var(--theme-red)";

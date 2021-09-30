@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 export default function ChatList() {
-    const { userDetail, chats, mapChats, users, setnewChatBox, jwtTokken, chatUsers, setChatUsers, myFun, chatVisible, allUser, setOffline, setjwtTokken} = useContext(userContext);
+    const { userDetail, chats, mapChats, users, unread, setnewChatBox, jwtTokken, chatUsers, setChatUsers, myFun, chatVisible, allUser, setOffline, setjwtTokken} = useContext(userContext);
 
 
     useEffect(() => {
@@ -72,7 +72,8 @@ export default function ChatList() {
                 </div>
                 <div className="list" style={{ overflowY: "scroll" }}>
                     {chatUsers.map((user) => {
-                        let message = "Say Hello", userName, imgUrl, sentBy;
+                        let message = "Say Hello", userName, imgUrl, sentBy, unreadCont = unread.get(user);
+                        if (!unreadCont) unreadCont = 0;
                         var last;
                         if (chats.get(user) && chats.get(user)[0]) {
                             for (var i in chats.get(user)[0]) last = i;
@@ -86,7 +87,7 @@ export default function ChatList() {
                             else sentBy=allUser.userData[sentBy].name;
                             sentBy+=": ";
                         }else sentBy="";
-                        return <ChatListCard key={userName} chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} sentBy={sentBy}/>
+                        return <ChatListCard key={userName} chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} sentBy={sentBy} unreadCont={unreadCont}/>
                     })}
                 </div>
             </div>

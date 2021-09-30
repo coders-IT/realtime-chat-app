@@ -22,7 +22,7 @@ export default function MessageCard(props) {
     /*replyMsg, setreplyMsg*/
 
     const addReply = () => {
-        let user=username==="You"?data.userDetail.username:username;
+        let user=username;
         data.setreplyMsg({message:props.message.message,user:user});
 	}
 
@@ -33,13 +33,20 @@ export default function MessageCard(props) {
         reply=user+": "+props.message.reply.message;
     }else reply = props.message.reply;
 
+    const getFormatedTime = (dt) => {
+        var hour = "";
+        if (dt.getHours() % 12 == 0) hour += "12";
+        else hour += `${dt.getHours() % 12 < 10 ? "0" : ""}${dt.getHours() % 12}`;
+        return `${hour}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()} ${dt.getHours() >= 12 ? "PM" : "AM"}`
+	}
+
     return (
         <div className={`${flt}`} onDoubleClick={addReply} id={props.message.time}>
             <div id="main">
                 <div className="about">
                     <div id="sender">{username}</div>
                     <div className="time">
-                        {`${dt.getHours() % 12 < 10 ? "0" : ""}${dt.getHours() % 12}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()} ${dt.getHours() >= 12 ? "PM" : "AM"}`}
+                        {getFormatedTime(dt)}
                     </div>
                 </div>
                 <div id="content">

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import userContext from '../context/userContext';
 // import "./Styles/sendBox.css"
 // const fireBaseApp = require('firebase/app');
@@ -28,6 +28,12 @@ export default function SendBox() {
     //     console.log(msg);
 	// })
 
+    useEffect(() => {
+        if (data.replyMsg) document.getElementById("message").focus();
+    }, [data.replyMsg])
+    useEffect(() => {
+        document.getElementById("message").focus();
+    }, [data.chatWith])
     const sendMessage = async (e) => {
         e.preventDefault();
         const message = document.getElementById("message");

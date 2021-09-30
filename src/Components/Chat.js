@@ -9,15 +9,20 @@ export default function Chat() {
         /*myFun();*/
         /* eslint-disable */
     }, [chats]);
+
+    const getFormatedTime = (dt) => {
+        var hour = "";
+        if (dt.getHours() % 12 == 0) hour += "12";
+        else hour += `${dt.getHours() % 12 < 10 ? "0" : ""}${dt.getHours() % 12}`;
+        return `${hour}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()} ${dt.getHours() >= 12 ? "PM" : "AM"}`
+    }
+
     const getTime = (timestamp) => {
         if(chatWith === "") return "";
         const dt = new Date(timestamp);
         const curDt=new Date();
-        let hours=dt.getHours();
-        hours%=12;
-        if(!hours)  hours=12;
 
-        let lastSeen="Last seen at " + hours +":"+ dt.getMinutes() + (dt.getHours()>=12?" PM ":" AM ");
+        let lastSeen = "Last seen at " + getFormatedTime(dt) + " ";
         if(dt.getDate() !== curDt.getDate() || dt.getMonth() !== curDt.getMonth() && dt.getFullYear() !== curDt.getFullYear()){
             lastSeen+= dt.getDate() +"/"+ dt.getMonth() +"/"+ (dt.getFullYear()%100); 
         }

@@ -3,13 +3,14 @@ import userContext from './userContext';
 
 import { initializeApp } from "firebase/app";
 // import { getMessaging, onMessage, getToken } from "firebase/messaging";
-import { getDatabase, ref, onValue, onChildAdded, onChildChanged } from "firebase/database";
+import { getDatabase, ref, onValue, onChildAdded, onChildChanged, update } from "firebase/database";
 import Chat from '../Components/Chat';
 
 const UserState = (props) => {
     const [userDetail, setUserDetail] = useState({ username: "Deepak" });    //user data from getUser endpoint
     const [chats, setChats] = useState(new Map()); // map of user name to their chats
     const [users, setUsers] = useState(new Map());
+    const [unread, setUnread] = useState(new Map());
     const [message, setmessage] = useState([])
     const [chatWith, setchatWith] = useState("");
     const [newChatBox, setnewChatBox] = useState(false);
@@ -26,9 +27,29 @@ const UserState = (props) => {
         console.log("new msg");
         console.log(newMsg);
         if (newMsg.sender === chatWith.username) {
+            var updates = {};
+            if (userDetail.username != newMsg.user1) {
+                updates[`${newMsg.time}/read`] = true;
+                updateMsg(newMsg.user1, newMsg.user2, updates);
+
+            }
             setmessage(message.concat(newMsg));
-        }
+        } else {
+            if (newMsg["read"] == false && newMsg.user1 != userDetail.username) {
+                var mp = unread;
+                if (!mp.get(newMsg.user1)) createNotif(newMsg.user1)
+                if (mp.get(newMsg.user1)) mp.set(newMsg.user1, mp.get(newMsg.user1) + 1);
+                else mp.set(newMsg.user1, 1);
+                setUnread(mp);
+                console.log(mp);
+            }
+		}
     }, [newMsg]);
+
+
+    useEffect(() => {
+        console.log(unread);
+    }, [unread]);
 
     useEffect(() => {
 
@@ -48,6 +69,14 @@ const UserState = (props) => {
                         var newUserData = await getUserData(newUser);
                         mp.set(newUser, newUserData);
                         setUsers(mp);
+
+                        mp = chats;
+                        chats.set(newUser, []);
+                        setChats(mp);
+
+                        mp = unread;
+                        mp.set(newUser, 0);
+                        setUnread(mp);
 
                         myFun(newUser);
                     }
@@ -128,13 +157,12 @@ const UserState = (props) => {
         onChildAdded(chatRef, (data) => {
             var curData = data.val();
             curChat[0][data.key] = curData;
-            const dt = new Date();
-            curData["time"] = parseInt(dt.getTime());
+            curData["time"] = parseInt(data.key);
             curData["sender"] = user;
             var mp = chats;
             mp.set(user, curChat);
 
-            /*console.log(curData);*/
+            console.log("dsfdsfasdfa  ", curData, data.key);
 
             setnewMsg(curData);
             setChats(mp);
@@ -218,8 +246,42 @@ const UserState = (props) => {
         // console.log("alluserdata",parsed);
     }
 
+    const updateMsg = async (user1, user2, updates) => {
+        const bodyData = {
+            "user1": user1,
+            "user2": user2,
+            "updates": updates
+        }
+        const res = await fetch('http://localhost:5000/api/chat/updateMsg', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bodyData)
+        });
+	}
+
+    const createNotif = (user) => {
+        if (Notification.permission == "default") {
+            Notification.requestPermission().then(() => {
+                var not = new Notification("New Message from user", {
+                    body: user,
+                    icon: "https://www.pngkey.com/png/full/204-2049354_ic-account-box-48px-profile-picture-icon-square.png"
+                })
+                not.addEventListener("click", () => window.focus());
+            })
+        } else if (Notification.permission == "granted") {
+            var not = new Notification("New Message from user", {
+                body: user,
+                icon: "https://www.pngkey.com/png/full/204-2049354_ic-account-box-48px-profile-picture-icon-square.png"
+            })
+            not.addEventListener("click", () => window.focus());
+		}
+	}
+
+
     return (
-        <userContext.Provider value={{ userDetail, myFun, setOffline, chatVisible, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg }}>
+        <userContext.Provider value={{ userDetail, myFun, updateMsg, setOffline, chatVisible, unread, setUnread, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg }}>
             {props.children}
         </userContext.Provider>
     )
