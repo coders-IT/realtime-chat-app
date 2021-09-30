@@ -8,6 +8,17 @@ export default function ChatListCard(props) {
         if (str.length <= maxChar) return str;
         return str.substr(0, maxChar - 2) + "...";
     }
+    const getFormatedTime = (time) => {
+        let dt=new Date(time)
+        var hour = "";
+        if (dt.getHours() % 12 == 0) hour += "12";
+        else hour += `${dt.getHours() % 12 < 10 ? "0" : ""}${dt.getHours() % 12}`;
+        const dtc=new Date();
+        if(dt.getDate()!==dtc.getDate() || dt.getMonth()!==dtc.getMonth() || dt.getFullYear()!==dtc.getFullYear()){
+            return `${dt.getDate()}/${dt.getMonth()}/${dt.getFullYear()}`;
+        }  
+        return `${hour}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()} ${dt.getHours() >= 12 ? "PM" : "AM"}`
+	}
     const getUserMessage = async () => {
         // console.log(props.user);
 	    data.setreplyMsg(null);
@@ -55,6 +66,9 @@ export default function ChatListCard(props) {
                     {props.sentBy}{squeeze(props.message)}
                 </div>
             </div>
+            {props.unreadCount>0&&(<div className="unReadCountCont">
+                <div className="unReadCount">{props.unreadCount}</div>
+            </div>)}
         </div>
     )
 }

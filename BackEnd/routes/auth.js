@@ -47,6 +47,7 @@ router.post('/createuser', async (req, res) => {
             profilePicUrl: noImage,
             settings: {},
             chats: [],
+            unRead:{},
             online: true
         })
 

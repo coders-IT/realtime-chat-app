@@ -93,7 +93,13 @@ router.post("/sendMessage", getUserName, async (req, res) => {
 			chatsU2.unshift(req.username);
 			updates[`users/${req.body.user}/chats`] = chatsU2;
 		}
+
+		if(userDataU2.unRead===undefined)	userDataU2.unRead={};
+		let unreadCount=userDataU2.unRead[req.username]||0;
+		unreadCount++;
+		updates[`users/${req.body.user}/unRead/${req.username}`]=unreadCount;
 		
+
 		update(ref(db),updates);
 
 		res.status(200).send(msgBody);

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 export default function ChatList() {
-    const { userDetail, chats, mapChats, users, unread, setnewChatBox, jwtTokken, chatUsers, setChatUsers, myFun, chatVisible, allUser, setOffline, setjwtTokken} = useContext(userContext);
+    const { userDetail, setUserDetail, chats, mapChats, users, unread, setnewChatBox, jwtTokken, chatUsers, setChatUsers, myFun, chatVisible, allUser, setOffline, setjwtTokken} = useContext(userContext);
 
 
     useEffect(() => {
@@ -72,13 +72,14 @@ export default function ChatList() {
                 </div>
                 <div className="list" style={{ overflowY: "scroll" }}>
                     {chatUsers.map((user) => {
-                        let message = "Say Hello", userName, imgUrl, sentBy, unreadCont = unread.get(user);
+                        let message = "Say Hello", userName, imgUrl, sentBy, time, unreadCont = unread.get(user);
                         if (!unreadCont) unreadCont = 0;
                         var last;
                         if (chats.get(user) && chats.get(user)[0]) {
                             for (var i in chats.get(user)[0]) last = i;
                             message = chats.get(user)[0][last].message;
-                            sentBy=chats.get(user)[0][last].user1;
+                            sentBy = chats.get(user)[0][last].user1;
+                            time = chats.get(user)[0][last].time;
                         }
                         userName = users.get(user).name;
                         imgUrl = users.get(user).profilePicUrl;
@@ -87,7 +88,14 @@ export default function ChatList() {
                             else sentBy=allUser.userData[sentBy].name;
                             sentBy+=": ";
                         }else sentBy="";
-                        return <ChatListCard key={userName} chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} sentBy={sentBy} unreadCont={unreadCont}/>
+                        if(!userDetail.unRead){
+                            let ud=userDetail;
+                            ud.unRead={};
+                            setUserDetail(ud);
+                        }
+                        const unreadCount=userDetail.unRead[user]||0;
+                        console.log({unreadCount})
+                        return <ChatListCard key={userName} chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} sentBy={sentBy} unreadCont={unreadCont} unreadCount={unreadCount} time={time}/>
                     })}
                 </div>
             </div>

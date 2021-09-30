@@ -100,7 +100,18 @@ body {
   height: 1.4rem;
   overflow-y: hidden;
 }
-
+.unReadCount {
+  border-radius: 100px;
+  background-color: var(--theme-red);
+  width:27px;
+  height:27px;
+  color:var(--theme-blue);
+  font-size: 0.9em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #newChat{
     text-align :center;
     height:40px;

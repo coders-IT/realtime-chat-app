@@ -127,12 +127,12 @@ const UserState = (props) => {
         const db = getDatabase();
 
         const chatRef = ref(db, 'users');
-        var curChat = [{}];
         onChildChanged(chatRef, (data) => {
             var curData = data.val();
             console.log(curData);
             setUserStateChg(curData);
         })
+        // const chatRef = ref(db, 'users');
     }
 
     //updating user online status automatically
@@ -281,7 +281,7 @@ const UserState = (props) => {
 
 
     return (
-        <userContext.Provider value={{ userDetail, myFun, updateMsg, setOffline, chatVisible, unread, setUnread, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg }}>
+        <userContext.Provider value={{ userDetail, setUserDetail, myFun, updateMsg, setOffline, chatVisible, unread, setUnread, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg }}>
             {props.children}
         </userContext.Provider>
     )
