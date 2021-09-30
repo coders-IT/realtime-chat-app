@@ -1,25 +1,125 @@
 #overLay{
 	width:100vw;
 	height:100vh;
-	background-color:rgb(0 0 0 / 0.63);
+	background-color:rgb(0 0 0 / 0.93);
 	position:absolute;
 	top:0px;
 	left:0px;
 }
 
-#chatForm{
-	margin:auto;
-	margin-top:50px;
-	display:flex;
-	flex-wrap:wrap;
-	justify-content:space-around;
-	background-color:cadetblue;
-	padding:20px;
-	
+#chatForm {
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	background-color: #395b64;
+	padding: 20px;
 }
 
-#chatList{
-	display:flex;
-	flex-wrap:wrap;
-	justify-content:space-evenly;
+.start-chat , .cancel-chat, .chat-username{
+	border: none;
 }
+
+.chat-username {
+	width: 80vw;
+	border-radius: 100px;
+	height: 40px;
+	padding-left:30px;
+	line-height:40px;
+	margin-top:20px;
+}
+
+.cancel-chat,.start-chat{
+	width:20vw;
+	height:40px;
+	margin:10px;
+	background-color:#ff2f3f;
+	color:white;
+	font-size:16px;
+	border-radius:15px;
+	cursor:pointer;
+}
+
+.cancel-chat:hover, .start-chat:hover {
+	background-color: #ff5d69;
+}
+
+.chat-username:focus{
+	outline:none;
+}
+
+#chatList {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	overflow-y : scroll;
+	background-color:rgb(255 255 255 / 0.22);
+	width:85vw;
+	padding:15px;
+	max-height:50vh;
+	margin:auto;
+	margin-top:30px;
+}
+
+.new-list-card{
+	width :25vw;
+}
+
+.newChat-preview{
+	margin:auto;
+}
+
+.new-chat-pic{
+	margin-left:20px;
+}
+
+@media only screen and (max-width: 1000px) {
+	.new-list-card {
+		width: 27vw;
+	}
+	#chatList{
+		width:80vw;
+	}
+}
+
+@media only screen and (max-width: 850px) {
+	.new-list-card {
+		width: 47vw;
+	}
+
+	#chatList {
+		width: 70vw;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.new-list-card {
+		width: 57vw;
+	}
+
+	#chatList {
+		width: 80vw;
+	}
+	.cancel-chat, .start-chat {
+		width: 40vw;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.new-list-card {
+		width: 80vw;
+	}
+
+	.chat-username{
+		margin-top:10px;
+	}
+	.cancel-chat,.start-chat{
+		margin-bottom:0px;
+	}
+
+	#chatList {
+		width: 80vw;
+	}
+}
+
+

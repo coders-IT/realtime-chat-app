@@ -22,9 +22,20 @@ export default function NewChatCard(props) {
 	}
 
 	return (
-		<div style={divStyle} onClick={start} key={props.user}>
-			<p>{props.name}</p>
-			<p style={subName}>{props.user}</p>
+
+		<div onClick={start} key={props.user} className= "new-list-card">
+		    <div className="chat-list-card">
+				<img className="profile-pic new-chat-pic" src={props.imgUrl} alt={props.user} />
+				<div className="chat-preview newChat-preview">
+					<div className="chat-user">
+						{props.name}
+					</div>
+					<div className="chat-last-message">
+						{props.user}
+					</div>
+				</div>
+			</div>
 		</div>
+
 	)
 }

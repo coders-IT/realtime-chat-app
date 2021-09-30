@@ -14,10 +14,11 @@ export default function NewChatBox() {
 		var arr = [];
 		for (var i in data.allUser.userData) {
 			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username)
-				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} divNewChat={divNewChat} key={i} />);
+				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} imgUrl={data.allUser.userData[i].profilePicUrl} divNewChat={divNewChat} key={i} />);
 		}
 		setnewchatArray(arr);
 	}, [data.allUser, data.chatUsers]);
+
 
 
 	const startChat = async (e) => {
@@ -26,8 +27,12 @@ export default function NewChatBox() {
 		} catch {
 			console.log("error");
 		}
-		const username = document.getElementById("username").value;
-
+		var username = document.getElementById("username").value;
+		username = username.trim();
+		if (username == "") {
+			alert("Enter A valid User");
+			return;
+		}
 		const userData = await fetch("http://localhost:5000/api/auth/getUserWithName", {
 			method: 'POST',
 			headers: {
@@ -95,15 +100,24 @@ export default function NewChatBox() {
 	}
 
 
+	const filterUser = (e) => {
+		var arr = [];
+		for (var i in data.allUser.userData) {
+			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username && (i.startsWith(e.target.value) || i.endsWith(e.target.value)))
+				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} imgUrl={data.allUser.userData[i].profilePicUrl} divNewChat={divNewChat} key={i} />);
+		}
+		setnewchatArray(arr);
+	}
+
 
 	if (data.newChatBox) {
 		return (
 			<>
 				<div id="overLay">
 					<div id="chatForm">
-						<input type="text" id="username" disabled={newchatArray.length == 0} />
-						<button onClick={startChat} value="Start Chat" id="submit">Start Chat</button>
-						<button onClick={cancel} value="Start Chat" id="submit">Cancel</button>
+						<input type="text" className="chat-username" id="username" disabled={newchatArray.length == 0} onChange={filterUser} />
+						<button onClick={startChat} value="Start Chat" className="start-chat">Start Chat</button>
+						<button onClick={cancel} value="Start Chat" className="cancel-chat">Cancel</button>
 					</div>
 					<div id="chatList">
 						{newchatArray}
