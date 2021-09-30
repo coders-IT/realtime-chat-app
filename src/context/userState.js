@@ -71,7 +71,7 @@ const UserState = (props) => {
                         setUsers(mp);
 
                         mp = chats;
-                        chats.set(newUser, []);
+                        mp.set(newUser, []);
                         setChats(mp);
 
                         mp = unread;
@@ -96,7 +96,7 @@ const UserState = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "token": jwtTokken })
+            body: JSON.stringify({ "token": localStorage.getItem('jwtTokken')})
         });
         const parsed = await online.json();
         console.log(parsed);
@@ -115,6 +115,7 @@ const UserState = (props) => {
     }
 
     const handleUserStateChg = (user) => {
+        console.log('running 321');
         const firebaseApp = initializeApp({
             apiKey: "AIzaSyCuw7Z7cnh2XpKkkzd8m_nFBL4KZ8GJ2hk",
             authDomain: "bhannasa-realtime-chat-app.firebaseapp.com",
@@ -166,6 +167,19 @@ const UserState = (props) => {
 
             setnewMsg(curData);
             setChats(mp);
+        })
+        const userRef = ref(db, 'users/'+userDetail.username);
+        onChildChanged(userRef, async (data) => {
+            const userData = await fetch("http://localhost:5000/api/auth/getUser", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "token": jwtTokken })
+            });
+            const parsed = await userData.json();
+            setUserDetail(parsed);
+            console.log('changed123')
         })
     }
 
@@ -260,7 +274,19 @@ const UserState = (props) => {
             body: JSON.stringify(bodyData)
         });
 	}
-
+    const readMessage = async (user)=>{
+        const bodyData = {
+            "token": jwtTokken,
+            "user": user
+        }
+        const res = await fetch('http://localhost:5000/api/chat/readMessage',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bodyData)
+        });
+    }
     const createNotif = (user) => {
         if (Notification.permission == "default") {
             Notification.requestPermission().then(() => {
@@ -281,7 +307,7 @@ const UserState = (props) => {
 
 
     return (
-        <userContext.Provider value={{ userDetail, setUserDetail, myFun, updateMsg, setOffline, chatVisible, unread, setUnread, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg }}>
+        <userContext.Provider value={{ userDetail, setUserDetail, myFun, updateMsg, setOffline, chatVisible, unread, setUnread, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg, readMessage }}>
             {props.children}
         </userContext.Provider>
     )

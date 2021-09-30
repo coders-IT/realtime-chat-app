@@ -1,8 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import userContext from '../context/userContext';
 
 export default function ChatListCard(props) {
     const data = useContext(userContext);
+    // let unReadCount=props.unreadCount+12;
+    const [unReadCount, setUnReadCount] = useState(props.unreadCount)
     const squeeze = (str) => {
         let maxChar = 30;
         if (str.length <= maxChar) return str;
@@ -20,6 +22,8 @@ export default function ChatListCard(props) {
         return `${hour}:${dt.getMinutes() < 10 ? "0" : ""}${dt.getMinutes()} ${dt.getHours() >= 12 ? "PM" : "AM"}`
 	}
     const getUserMessage = async () => {
+        setUnReadCount(0);
+        if(data.chatWith)   data.readMessage(data.chatWith.username);
         // console.log(props.user);
 	    data.setreplyMsg(null);
         var arr = [];
@@ -66,8 +70,8 @@ export default function ChatListCard(props) {
                     {props.sentBy}{squeeze(props.message)}
                 </div>
             </div>
-            {props.unreadCount>0&&(<div className="unReadCountCont">
-                <div className="unReadCount">{props.unreadCount}</div>
+            {unReadCount>0&&(<div className="unReadCountCont">
+                <div className="unReadCount">{unReadCount}</div>
             </div>)}
         </div>
     )

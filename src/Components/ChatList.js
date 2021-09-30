@@ -96,6 +96,7 @@ export default function ChatList() {
                         const unreadCount=userDetail.unRead[user]||0;
                         console.log({unreadCount})
                         return <ChatListCard key={userName} chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} sentBy={sentBy} unreadCont={unreadCont} unreadCount={unreadCount} time={time}/>
+                        // return <ChatListCard key={userName} chats={chats} chatUsers={chatUsers} message={message} user={userName} uniqName={user} imgUrl={imgUrl} sentBy={sentBy} unreadCont={unreadCont} unreadCount={unreadCont} time={time}/>
                     })}
                 </div>
             </div>

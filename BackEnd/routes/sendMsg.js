@@ -130,5 +130,18 @@ router.post("/updateMsg", async (req, res) => {
 	}
 })
 
+router.post('/readMessage',getUserName,async(req,res)=>{
+	try{
+		const db = getDatabase();
+		const updates={};
+		updates[`users/${req.username}/unRead/${req.body.user}`]=0;
+		console.log(updates);
+		update(ref(db),updates);
+		res.status(200).send('Success');
+	}catch(error){
+		console.log(error);
+		res.status(500).json({ error: "Something Wrong! Please try again after some time" });
+	}
+})
 
 module.exports = router;
