@@ -12,9 +12,13 @@ export default function NewChatBox() {
 	useEffect(() => {
 		// console.log(data.allUser);
 		var arr = [];
+		var count = 0;
 		for (var i in data.allUser.userData) {
-			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username)
+			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username) {
 				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} imgUrl={data.allUser.userData[i].profilePicUrl} divNewChat={divNewChat} key={i} />);
+				count++;
+			}
+			if (count > 14) break;
 		}
 		setnewchatArray(arr);
 	}, [data.allUser, data.chatUsers]);
@@ -102,9 +106,13 @@ export default function NewChatBox() {
 
 	const filterUser = (e) => {
 		var arr = [];
+		var count = 0;
 		for (var i in data.allUser.userData) {
-			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username && (i.startsWith(e.target.value) || i.endsWith(e.target.value)))
+			if (data.chatUsers.indexOf(i) == -1 && i !== data.userDetail.username && i.search(e.target.value) != -1) {
 				arr.push(<NewChatCard user={i} name={data.allUser.userData[i].name} imgUrl={data.allUser.userData[i].profilePicUrl} divNewChat={divNewChat} key={i} />);
+				count++;
+			}
+			if (count > 14) break;
 		}
 		setnewchatArray(arr);
 	}
