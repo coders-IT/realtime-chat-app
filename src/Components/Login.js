@@ -35,6 +35,7 @@ export default function Login() {
         }
         data.setOnline();
         window.onunload = data.setOffline;
+        location.reload();
     };
     return (
         <div className="loginContainer">

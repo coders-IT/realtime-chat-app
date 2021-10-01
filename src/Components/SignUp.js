@@ -38,6 +38,7 @@ export default function SignUp() {
         } else {
             alert(parsed.error);
         }
+        location.reload();
     };
     return (
         <div className="loginContainer">
