@@ -11,7 +11,8 @@ const UserState = (props) => {
     const [chats, setChats] = useState(new Map()); // map of user name to their chats
     const [users, setUsers] = useState(new Map());
     const [unread, setUnread] = useState(new Map());
-    const [message, setmessage] = useState([])
+    const [message, setmessage] = useState([]);
+    const [unreadmessage, unreadsetmessage] = useState([]);
     const [chatWith, setchatWith] = useState("");
     const [newChatBox, setnewChatBox] = useState(false);
     const [chatUsers, setChatUsers] = useState([]);
@@ -31,9 +32,19 @@ const UserState = (props) => {
             if (userDetail.username != newMsg.user1) {
                 updates[`${newMsg.time}/read`] = true;
                 updateMsg(newMsg.user1, newMsg.user2, updates);
-
+            } else {
+                var ch = chats.get(newMsg.user2)[0];
+                var msg = newMsg;
+                msg["read"] = true;
+                ch[newMsg["key"]] = msg;
+                var mp = chats;
+                chats.set(newMsg.user2, [ch]);
             }
-            setmessage(message.concat(newMsg));
+            var all = message;
+            all = all.concat(unreadmessage);
+            all = all.concat(newMsg);
+            unreadsetmessage([]);
+            setmessage(all);
         } else {
             if (newMsg["read"] == false && newMsg.user1 != userDetail.username) {
                 var mp = unread;
@@ -160,6 +171,7 @@ const UserState = (props) => {
             curChat[0][data.key] = curData;
             curData["time"] = parseInt(data.key);
             curData["sender"] = user;
+            curData["key"] = data.key;
             var mp = chats;
             mp.set(user, curChat);
 
@@ -168,7 +180,7 @@ const UserState = (props) => {
             setnewMsg(curData);
             setChats(mp);
         })
-        const userRef = ref(db, 'users/'+userDetail.username);
+/*        const userRef = ref(db, 'users/'+userDetail.username);
         onChildChanged(userRef, async (data) => {
             const userData = await fetch("http://localhost:5000/api/auth/getUser", {
                 method: 'POST',
@@ -180,7 +192,7 @@ const UserState = (props) => {
             const parsed = await userData.json();
             setUserDetail(parsed);
             console.log('changed123')
-        })
+        })*/
     }
 
 
@@ -307,7 +319,7 @@ const UserState = (props) => {
 
 
     return (
-        <userContext.Provider value={{ userDetail, setUserDetail, myFun, updateMsg, setOffline, chatVisible, unread, setUnread, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg, readMessage }}>
+        <userContext.Provider value={{ userDetail, setUserDetail, unreadmessage, unreadsetmessage, myFun, updateMsg, setOffline, chatVisible, unread, setUnread, setChatVisible, setOnline, handleUserStateChg, getAllUser, mapChats, users, chats, setChats, jwtTokken, message, setmessage, chatWith, setUsers, setchatWith, setjwtTokken, newChatBox, setnewChatBox, myFun, chatUsers, setChatUsers, allUser, setallUser, replyMsg, setreplyMsg, readMessage }}>
             {props.children}
         </userContext.Provider>
     )

@@ -27,16 +27,31 @@ export default function ChatListCard(props) {
         // console.log(props.user);
 	    data.setreplyMsg(null);
         var arr = [];
+        var unreadarr = [];
         var updates = {};
         const jsonData = data.chats.get(props.uniqName)[0];
+        var uread = false;
         for (var i in jsonData) {
-            arr.push(jsonData[i]);
-            if (jsonData[i]["read"] == false) updates[`${i}/read`] = true;
+            
+            if (jsonData[i]["read"] == false) {
+                updates[`${i}/read`] = true;
+                uread = true;
+                jsonData[i]["read"] = true;
+                unreadarr.push(jsonData[i]);
+            } else arr.push(jsonData[i]);
                 // console.log(jsonData[i], i);
-                console.log(jsonData[i]["read"], "sdffadsfjadsklfsdjklfdsj");
         }
-        console.log(data.userDetail.username, props.uniqName, updates);
-        data.updateMsg(data.userDetail.username, props.uniqName, updates);
+
+        //updatating read chats 
+        var mp = data.chats;
+        mp.set(props.uniqName, [jsonData]);
+        data.setChats(mp);
+        console.log(mp, "updated chat list map", updates !== {});
+
+        if (uread) {
+            console.log("our updates",updates);
+            data.updateMsg(data.userDetail.username, props.uniqName, updates);
+        }
         
         var mp = data.unread;
         mp.set(props.uniqName, 0);
@@ -44,6 +59,9 @@ export default function ChatListCard(props) {
         console.log(mp);
 
         data.setmessage(arr);
+        data.unreadsetmessage(unreadarr);
+        console.log("read/unread message", arr, unreadarr);
+
         if (data.chatWith!=="") document.getElementById(data.chatWith.username).style.backgroundColor = "transparent";
         document.getElementById(props.uniqName).style.backgroundColor = "var(--theme-red)";
 
@@ -70,8 +88,8 @@ export default function ChatListCard(props) {
                     {props.sentBy}{squeeze(props.message)}
                 </div>
             </div>
-            {unReadCount>0&&(<div className="unReadCountCont">
-                <div className="unReadCount">{unReadCount}</div>
+            {props.unreadCont>0&&(<div className="unReadCountCont">
+                <div className="unReadCount">{props.unreadCont}</div>
             </div>)}
         </div>
     )
