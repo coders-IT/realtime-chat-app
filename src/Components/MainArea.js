@@ -1,9 +1,9 @@
-import { useContext } from 'react'
-import userContext from '../context/userContext'
-import Chat from './Chat';
-import ChatList from './ChatList';
-import Login from './Login';
-import NewChatBox from './NewChatBox';
+import { useContext } from "react";
+import userContext from "../context/userContext";
+import Chat from "./Chat";
+import ChatList from "./ChatList";
+import Login from "./Login";
+import NewChatBox from "./NewChatBox";
 
 export default function MainArea() {
 	const data = useContext(userContext);
@@ -13,12 +13,11 @@ export default function MainArea() {
 				<div className="main">
 					<ChatList />
 					<Chat />
-					<NewChatBox/>
+					<NewChatBox />
 				</div>
 			</div>
-			
-		)
+		);
 	} else {
-		return (<Login/>)
+		return <Login />;
 	}
 }

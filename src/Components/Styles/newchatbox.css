@@ -1,7 +1,7 @@
 #overLay{
 	width:100vw;
 	height:100vh;
-	background-color:rgb(0 0 0 / 0.93);
+	background-color: var(--theme-red);
 	position:absolute;
 	top:0px;
 	left:0px;
@@ -12,8 +12,11 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	background-color: #395b64;
+	background-color: #ff5d69;
 	padding: 20px;
+	width: 85vw;
+	border-bottom-left-radius: 50px;
+	border-bottom-right-radius: 50px;
 }
 
 .start-chat , .cancel-chat, .chat-username{
@@ -33,7 +36,8 @@
 	width:20vw;
 	height:40px;
 	margin:10px;
-	background-color:#ff2f3f;
+	background-color: #ff5d69;
+	background-color: var(--theme-red);
 	color:white;
 	font-size:16px;
 	border-radius:15px;
@@ -41,7 +45,7 @@
 }
 
 .cancel-chat:hover, .start-chat:hover {
-	background-color: #ff5d69;
+	background-color: #ff7d86;
 }
 
 .chat-username:focus{
@@ -54,11 +58,14 @@
 	justify-content: space-evenly;
 	overflow-y : scroll;
 	background-color:rgb(255 255 255 / 0.22);
+	border-top-left-radius: 50px;
+	border-top-right-radius: 50px;
 	width:85vw;
 	padding:15px;
 	max-height:50vh;
 	margin:auto;
 	margin-top:30px;
+	padding-bottom: 20px;
 }
 
 .new-list-card{
@@ -101,7 +108,7 @@
 		width: 80vw;
 	}
 	.cancel-chat, .start-chat {
-		width: 40vw;
+		width: 36vw;
 	}
 }
 
