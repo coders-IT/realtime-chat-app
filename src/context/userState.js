@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import userContext from "./userContext";
 
@@ -37,6 +37,7 @@ const UserState = (props) => {
                 var ch = chats.get(newMsg.user2)[0];
                 var msg = newMsg;
                 msg["read"] = true;
+                if (!ch) ch = {};
                 ch[newMsg["key"]] = msg;
                 var mp = chats;
                 chats.set(newMsg.user2, [ch]);
